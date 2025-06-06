@@ -61,6 +61,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				robux: {
+					gold: 'hsl(var(--robux-gold))',
+					green: 'hsl(var(--robux-green))',
+					blue: 'hsl(var(--robux-blue))',
+					purple: 'hsl(var(--robux-purple))'
 				}
 			},
 			borderRadius: {
