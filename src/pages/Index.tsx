@@ -15,7 +15,7 @@ const Index = () => {
   const [claimCount, setClaimCount] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const [totalRobux, setTotalRobux] = useState(0);
-  const [mainProgress, setMainProgress] = useState(2847);
+  const [mainProgress, setMainProgress] = useState(0);
   const [clickProgress, setClickProgress] = useState(0);
   const [showWinModal, setShowWinModal] = useState(false);
   const [lastWin, setLastWin] = useState({ amount: 0, type: 'robux' });
@@ -63,12 +63,24 @@ const Index = () => {
 
   // Leaderboard data
   const [leaderboard] = useState([
-    { rank: 1, name: 'RobuxKing2024', avatar: '👑', robux: 15420 },
-    { rank: 2, name: 'BlockMaster99', avatar: '🎯', robux: 12350 },
-    { rank: 3, name: 'ProGamer777', avatar: '🎮', robux: 9870 },
-    { rank: 4, name: 'BuilderPro', avatar: '🏗️', robux: 8560 },
-    { rank: 5, name: 'RobloxLord', avatar: '⚡', robux: 7230 }
+    { rank: 1, name: 'RobuxKing2024', avatar: '👑', robux: 850420 },
+    { rank: 2, name: 'BlockMaster99', avatar: '🎯', robux: 712350 },
+    { rank: 3, name: 'ProGamer777', avatar: '🎮', robux: 659870 },
+    { rank: 4, name: 'BuilderPro', avatar: '🏗️', robux: 598560 },
+    { rank: 5, name: 'RobloxLord', avatar: '⚡', robux: 527230 }
   ]);
+
+  // Chat messages data
+  const [chatMessages, setChatMessages] = useState([
+    { name: 'RobuxKing2024', avatar: '👑', message: 'Только что получил 850 робуксов! 🔥', time: 'сейчас' },
+    { name: 'ProGamer777', avatar: '🎮', message: 'Кто знает секретные коды на робуксы?', time: '1 мин назад' },
+    { name: 'BlockMaster99', avatar: '🎯', message: 'Этот сайт лучший для фарма робуксов!', time: '2 мин назад' },
+    { name: 'GameChamp', avatar: '🏅', message: 'Скачал автокликер, теперь робуксы сами капают 💰', time: '3 мин назад' },
+    { name: 'RobuxLord', avatar: '⚡', message: 'Друзья, не забывайте подписываться на канал!', time: '4 мин назад' }
+  ]);
+
+  // Support data
+  const [supportOpen, setSupportOpen] = useState(false);
 
   // Analytics data
   const [analytics] = useState({
@@ -104,10 +116,68 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Auto-update chat
+  useEffect(() => {
+    const chatInterval = setInterval(() => {
+      const newMessages = [
+        'Ребята, этот сайт топ! Уже 2000 робуксов получил!',
+        'Кто-то знает, как быстрее получать робуксы?',
+        'Автокликер реально работает, советую всем!',
+        'Только что выиграл промо-код! Спасибо сайту!',
+        'Подписался на канал, робуксы пошли сразу!',
+        'Этот фаучет лучше всех, что пробовал!',
+        'Друзья, не забывайте рефералку использовать!',
+        'МЕГА выигрыш 1000 робуксов! Не могу поверить!',
+        'Каждый день захожу за бонусом, советую!',
+        'Реально работающий сайт, не развод!'
+      ];
+      
+      setChatMessages(prev => {
+        const randomMessage = newMessages[Math.floor(Math.random() * newMessages.length)];
+        const randomPlayer = players[Math.floor(Math.random() * players.length)];
+        const newMsg = {
+          name: randomPlayer.name,
+          avatar: randomPlayer.avatar,
+          message: randomMessage,
+          time: 'сейчас'
+        };
+        
+        const updatedMessages = [newMsg, ...prev.slice(0, 4)].map((msg, index) => 
+          index === 0 ? msg : { ...msg, time: updateChatTime(msg.time) }
+        );
+        
+        return updatedMessages;
+      });
+    }, 7000);
+    
+    return () => clearInterval(chatInterval);
+  }, [players]);
+
+  // Update main progress automatically
+  useEffect(() => {
+    const progressInterval = setInterval(() => {
+      setMainProgress(prev => {
+        const increment = Math.floor(Math.random() * 5) + 1;
+        return Math.min(prev + increment, 10000);
+      });
+    }, 8000);
+    
+    return () => clearInterval(progressInterval);
+  }, []);
+
   const updateTime = (currentTime: string) => {
     if (currentTime === 'сейчас') return '3 сек назад';
     if (currentTime === '3 сек назад') return '6 сек назад';
     if (currentTime === '6 сек назад') return '9 сек назад';
+    return currentTime;
+  };
+
+  const updateChatTime = (currentTime: string) => {
+    if (currentTime === 'сейчас') return '1 мин назад';
+    if (currentTime === '1 мин назад') return '2 мин назад';
+    if (currentTime === '2 мин назад') return '3 мин назад';
+    if (currentTime === '3 мин назад') return '4 мин назад';
+    if (currentTime === '4 мин назад') return '5 мин назад';
     return currentTime;
   };
 
@@ -280,7 +350,7 @@ const Index = () => {
           
           {/* Recent Activity - All 35 Players */}
           <Card className="p-6">
-            <h3 className="text-xl font-bold mb-4">🔥 Недавние выигрыши (Онлайн: {players.length})</h3>
+            <h3 className="text-xl font-bold mb-4">🔥 Недавние выигрыши</h3>
             <div className="max-h-80 overflow-y-auto space-y-2">
               {players.map((player, index) => (
                 <div key={index} className="player-card flex items-center justify-between">
@@ -316,6 +386,103 @@ const Index = () => {
                 </div>
               ))}
             </div>
+          </Card>
+        </div>
+
+        {/* Chat and Support Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          {/* Live Chat */}
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-4">💬 Чат игроков</h3>
+            <div className="max-h-64 overflow-y-auto space-y-3 mb-4">
+              {chatMessages.map((msg, index) => (
+                <div key={index} className="flex items-start space-x-3 animate-fade-in">
+                  <span className="text-lg">{msg.avatar}</span>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="font-semibold text-sm text-robux-blue">{msg.name}</span>
+                      <span className="text-xs text-muted-foreground">{msg.time}</span>
+                    </div>
+                    <p className="text-sm text-foreground mt-1">{msg.message}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex space-x-2">
+              <input 
+                type="text" 
+                placeholder="Написать сообщение..." 
+                className="flex-1 px-3 py-2 bg-input border border-border rounded-lg text-sm"
+                disabled
+              />
+              <Button size="sm" disabled className="bg-robux-blue">Отправить</Button>
+            </div>
+          </Card>
+
+          {/* Support */}
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-4">🛡️ Служба поддержки</h3>
+            <div className="space-y-4">
+              <div className="bg-secondary p-4 rounded-lg">
+                <div className="flex items-center space-x-3 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-robux-green flex items-center justify-center">
+                    <span className="text-sm font-bold text-background">S</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm">Техподдержка</div>
+                    <div className="text-xs text-muted-foreground">Онлайн</div>
+                  </div>
+                </div>
+                <p className="text-sm text-foreground">
+                  Привет! У нас есть проблемы? Мы поможем вам получить ваши Robux! 
+                  Средний ответ: 2 минуты ⚡
+                </p>
+              </div>
+              
+              <div className="space-y-2">
+                <Button 
+                  onClick={() => setSupportOpen(true)}
+                  className="w-full bg-robux-green hover:bg-robux-green/80"
+                >
+                  🎧 Связаться с поддержкой
+                </Button>
+                <Button 
+                  onClick={() => window.open('https://t.me/zarabotay_depin', '_blank')}
+                  className="w-full bg-robux-blue hover:bg-robux-blue/80"
+                >
+                  📞 Telegram поддержка
+                </Button>
+              </div>
+
+              <div className="text-center space-y-2">
+                <div className="text-sm font-semibold text-robux-gold">FAQ</div>
+                <div className="text-xs text-muted-foreground space-y-1">
+                  <div>• Не получаю Robux? Проверьте подписку!</div>
+                  <div>• Промо-код не работает? Попробуйте позже!</div>
+                  <div>• Автокликер безопасен? Да, 100%!</div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Special Features */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="p-6 text-center">
+            <div className="text-4xl mb-3">🎯</div>
+            <h3 className="font-bold text-lg mb-2">Без лимитов</h3>
+            <p className="text-sm text-muted-foreground">Получайте Robux без ограничений времени!</p>
+          </Card>
+          <Card className="p-6 text-center">
+            <div className="text-4xl mb-3">⚡</div>
+            <h3 className="font-bold text-lg mb-2">Мгновенно</h3>
+            <p className="text-sm text-muted-foreground">Robux поступают на ваш аккаунт моментально!</p>
+          </Card>
+          <Card className="p-6 text-center">
+            <div className="text-4xl mb-3">🔒</div>
+            <h3 className="font-bold text-lg mb-2">Безопасно</h3>
+            <p className="text-sm text-muted-foreground">100% безопасно для вашего Roblox аккаунта!</p>
           </Card>
         </div>
 
@@ -361,6 +528,41 @@ const Index = () => {
           </Tabs>
         </Card>
       </div>
+
+      {/* Support Modal */}
+      <Dialog open={supportOpen} onOpenChange={setSupportOpen}>
+        <DialogContent className="text-center">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">🛡️ Служба поддержки</DialogTitle>
+          </DialogHeader>
+          <div className="py-6 space-y-4">
+            <div className="text-lg font-semibold text-robux-green">Как мы можем помочь?</div>
+            <div className="space-y-3 text-left">
+              <div className="bg-secondary p-3 rounded-lg">
+                <div className="font-semibold text-sm">❓ Не получаю Robux</div>
+                <p className="text-xs text-muted-foreground mt-1">Убедитесь, что подписались на канал и активировали уведомления</p>
+              </div>
+              <div className="bg-secondary p-3 rounded-lg">
+                <div className="font-semibold text-sm">🎟️ Промо-код не работает</div>
+                <p className="text-xs text-muted-foreground mt-1">Попробуйте ввести код заново или обратитесь в поддержку</p>
+              </div>
+              <div className="bg-secondary p-3 rounded-lg">
+                <div className="font-semibold text-sm">📱 Проблемы с автокликером</div>
+                <p className="text-xs text-muted-foreground mt-1">Скачайте последнюю версию и отключите антивирус</p>
+              </div>
+            </div>
+            <Button 
+              onClick={() => window.open('https://t.me/zarabotay_depin', '_blank')}
+              className="w-full bg-robux-blue hover:bg-robux-blue/80"
+            >
+              📞 Написать в Telegram
+            </Button>
+          </div>
+          <Button onClick={() => setSupportOpen(false)} className="w-full">
+            Закрыть
+          </Button>
+        </DialogContent>
+      </Dialog>
 
       {/* Win Modal */}
       <Dialog open={showWinModal} onOpenChange={setShowWinModal}>
