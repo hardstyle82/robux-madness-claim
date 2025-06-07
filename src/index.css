@@ -60,9 +60,10 @@
   body {
     @apply bg-background text-foreground;
     background-image: 
-      radial-gradient(circle at 20% 50%, hsl(var(--robux-blue)) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, hsl(var(--robux-purple)) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, hsl(var(--robux-green)) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, hsl(var(--robux-blue)) 0%, transparent 30%),
+      radial-gradient(circle at 80% 20%, hsl(var(--robux-purple)) 0%, transparent 30%),
+      radial-gradient(circle at 40% 80%, hsl(var(--robux-green)) 0%, transparent 30%),
+      radial-gradient(circle at 70% 70%, hsl(var(--robux-gold)) 0%, transparent 25%);
     background-attachment: fixed;
     position: relative;
     overflow-x: hidden;
@@ -78,11 +79,12 @@
     pointer-events: none;
     z-index: -1;
     background-image: 
-      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' font-size='24' opacity='0.1'%3E🤖%3C/text%3E%3Ctext x='70' y='80' font-size='20' opacity='0.08'%3E🎮%3C/text%3E%3C/svg%3E"),
-      url("data:image/svg+xml,%3Csvg width='150' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='20' y='50' font-size='30' opacity='0.06'%3E👾%3C/text%3E%3Ctext x='80' y='120' font-size='25' opacity='0.05'%3E🕹️%3C/text%3E%3C/svg%3E"),
-      url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='15' y='40' font-size='28' opacity='0.07'%3E🎯%3C/text%3E%3Ctext x='60' y='90' font-size='22' opacity='0.06'%3E⚡%3C/text%3E%3C/svg%3E");
+      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' font-size='24' opacity='0.15'%3E🟨%3C/text%3E%3Ctext x='70' y='80' font-size='20' opacity='0.12'%3E🎮%3C/text%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg width='150' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='20' y='50' font-size='30' opacity='0.1'%3E🟩%3C/text%3E%3Ctext x='80' y='120' font-size='25' opacity='0.08'%3E🎯%3C/text%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='15' y='40' font-size='28' opacity='0.12'%3E🟦%3C/text%3E%3Ctext x='60' y='90' font-size='22' opacity='0.1'%3E⚡%3C/text%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='25' font-size='20' opacity='0.1'%3E🎲%3C/text%3E%3Ctext x='45' y='60' font-size='18' opacity='0.08'%3E🚀%3C/text%3E%3C/svg%3E");
     background-repeat: repeat;
-    background-position: 0 0, 50px 50px, 25px 25px;
+    background-position: 0 0, 50px 50px, 25px 25px, 75px 25px;
     animation: floatBackground 20s ease-in-out infinite;
   }
 }

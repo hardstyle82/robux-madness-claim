@@ -10,17 +10,45 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const Index = () => {
   const { toast } = useToast();
   
+  // Load from localStorage
+  const loadFromStorage = () => {
+    const saved = localStorage.getItem('robuxGameData');
+    if (saved) {
+      const data = JSON.parse(saved);
+      return {
+        isSubscribed: data.isSubscribed || false,
+        claimCount: data.claimCount || 0,
+        totalRobux: data.totalRobux || 0,
+        clickProgress: data.clickProgress || 0,
+        dailyBonus: data.dailyBonus || false,
+        referralCode: data.referralCode || 'RBLX' + Math.random().toString(36).substr(2, 6).toUpperCase()
+      };
+    }
+    return {
+      isSubscribed: false,
+      claimCount: 0,
+      totalRobux: 0,
+      clickProgress: 0,
+      dailyBonus: false,
+      referralCode: 'RBLX' + Math.random().toString(36).substr(2, 6).toUpperCase()
+    };
+  };
+
+  const savedData = loadFromStorage();
+  
   // State management
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [claimCount, setClaimCount] = useState(0);
+  const [isSubscribed, setIsSubscribed] = useState(savedData.isSubscribed);
+  const [claimCount, setClaimCount] = useState(savedData.claimCount);
   const [timeLeft, setTimeLeft] = useState(0);
-  const [totalRobux, setTotalRobux] = useState(0);
-  const [mainProgress, setMainProgress] = useState(0);
-  const [clickProgress, setClickProgress] = useState(0);
+  const [totalRobux, setTotalRobux] = useState(savedData.totalRobux);
+  const [mainProgress, setMainProgress] = useState(savedData.totalRobux); // Синхронизирован с totalRobux
+  const [clickProgress, setClickProgress] = useState(savedData.clickProgress);
   const [showWinModal, setShowWinModal] = useState(false);
   const [lastWin, setLastWin] = useState({ amount: 0, type: 'robux' });
-  const [dailyBonus, setDailyBonus] = useState(false);
-  const [referralCode, setReferralCode] = useState('RBLX' + Math.random().toString(36).substr(2, 6).toUpperCase());
+  const [dailyBonus, setDailyBonus] = useState(savedData.dailyBonus);
+  const [referralCode, setReferralCode] = useState(savedData.referralCode);
+  const [chatMessage, setChatMessage] = useState('');
+  const [realPlayerWins, setRealPlayerWins] = useState([]);
 
   // Fake players data (35 players as requested)
   const [players, setPlayers] = useState([
@@ -61,13 +89,26 @@ const Index = () => {
     { name: 'GameLegend', avatar: '🌟', robux: 140, time: '1 мин назад' }
   ]);
 
+  // Save to localStorage
+  useEffect(() => {
+    const dataToSave = {
+      isSubscribed,
+      claimCount,
+      totalRobux,
+      clickProgress,
+      dailyBonus,
+      referralCode
+    };
+    localStorage.setItem('robuxGameData', JSON.stringify(dataToSave));
+  }, [isSubscribed, claimCount, totalRobux, clickProgress, dailyBonus, referralCode]);
+
   // Leaderboard data
   const [leaderboard] = useState([
-    { rank: 1, name: 'RobuxKing2024', avatar: '👑', robux: 850420 },
-    { rank: 2, name: 'BlockMaster99', avatar: '🎯', robux: 712350 },
-    { rank: 3, name: 'ProGamer777', avatar: '🎮', robux: 659870 },
-    { rank: 4, name: 'BuilderPro', avatar: '🏗️', robux: 598560 },
-    { rank: 5, name: 'RobloxLord', avatar: '⚡', robux: 527230 }
+    { rank: 1, name: 'RobuxKing2024', avatar: '👑', robux: 950420 },
+    { rank: 2, name: 'BlockMaster99', avatar: '🎯', robux: 812350 },
+    { rank: 3, name: 'ProGamer777', avatar: '🎮', robux: 759870 },
+    { rank: 4, name: 'BuilderPro', avatar: '🏗️', robux: 698560 },
+    { rank: 5, name: 'RobloxLord', avatar: '⚡', robux: 627230 }
   ]);
 
   // Chat messages data
@@ -120,20 +161,42 @@ const Index = () => {
   useEffect(() => {
     const chatInterval = setInterval(() => {
       const newMessages = [
-        'Ребята, этот сайт топ! Уже 2000 робуксов получил!',
-        'Кто-то знает, как быстрее получать робуксы?',
-        'Автокликер реально работает, советую всем!',
-        'Только что выиграл промо-код! Спасибо сайту!',
-        'Подписался на канал, робуксы пошли сразу!',
+        'Бля, этот сайт охуенно работает! Уже 5к робуксов!',
+        'Чекайте автокликер, он дохуя эффективный!',
+        'Ёбаный в рот, промо-код сработал! 1000 робуксов!',
+        'Пиздец как круто! Подписался и сразу робуксы!',
+        'Ребята, не ебите мозги, сайт рабочий!',
+        'Автокликер ваще огонь, сам качайте!',
+        'Блять, как же я раньше без этого жил?!',
+        'Друзья, рефералка дает неплохой бонус!',
+        'МЕГА выигрыш 1000 робуксов! Ахуеть можно!',
+        'Каждый день захожу, ибо нахуй надо робуксы!',
+        'Реально работает, не разводняк какой-то!',
+        'Кто-то знает секреты фарма робуксов?',
+        'Подписался на канал - робуксы потекли рекой!',
         'Этот фаучет лучше всех, что пробовал!',
-        'Друзья, не забывайте рефералку использовать!',
-        'МЕГА выигрыш 1000 робуксов! Не могу поверить!',
-        'Каждый день захожу за бонусом, советую!',
-        'Реально работающий сайт, не развод!'
+        'Друзья, используйте рефералку обязательно!',
+        'Только что выиграл промо-код! Спасибо!',
+        'Автокликер реально работает, всем советую!',
+        'Ребята, этот сайт топовый! Уже куча робуксов!',
+        'Блядь, как быстро робуксы капают с автокликером!',
+        'Пиздато сделан сайт, все честно работает!',
+        'Нахуй другие сайты, этот самый лучший!',
+        'Ебать, сколько я уже тут робуксов заработал!',
+        'Чекайте ежедневный бонус, не забывайте!',
+        'Охуенная реферальная программа, всех приглашаю!',
+        'Бля, как же я кайфую от этих робуксов!'
       ];
       
       setChatMessages(prev => {
-        const randomMessage = newMessages[Math.floor(Math.random() * newMessages.length)];
+        // Избегаем дублирования сообщений
+        let randomMessage;
+        let attempts = 0;
+        do {
+          randomMessage = newMessages[Math.floor(Math.random() * newMessages.length)];
+          attempts++;
+        } while (prev.some(msg => msg.message === randomMessage) && attempts < 10);
+        
         const randomPlayer = players[Math.floor(Math.random() * players.length)];
         const newMsg = {
           name: randomPlayer.name,
@@ -148,7 +211,7 @@ const Index = () => {
         
         return updatedMessages;
       });
-    }, 7000);
+    }, Math.floor(Math.random() * 4000) + 5000); // 5-8 секунд
     
     return () => clearInterval(chatInterval);
   }, [players]);
@@ -214,7 +277,17 @@ const Index = () => {
 
     if (winType !== 'promo') {
       setTotalRobux(totalRobux + winAmount);
+      setMainProgress(totalRobux + winAmount); // Синхронизируем главный прогресс
     }
+
+    // Добавляем выигрыш реального игрока в недавние выигрыши
+    const realPlayerWin = {
+      name: 'Вы',
+      avatar: '🎮',
+      robux: winAmount,
+      time: 'сейчас'
+    };
+    setRealPlayerWins(prev => [realPlayerWin, ...prev.slice(0, 2)]);
 
     setLastWin({ amount: winAmount, type: winType });
     setShowWinModal(true);
@@ -292,7 +365,7 @@ const Index = () => {
               disabled={!canClaimClickReward}
               onClick={() => window.open('https://t.me/zarabotay_depin', '_blank')}
             >
-              Получить 10000 R {canClaimClickReward ? '✅' : '🔒'}
+              Получить 500 000 R {canClaimClickReward ? '✅' : '🔒'}
             </Button>
           </div>
         </Card>
@@ -334,7 +407,7 @@ const Index = () => {
             <div className="space-y-4">
               <Button 
                 onClick={() => window.open('https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/d/Dpi6-vXUvyqWrw', '_blank')}
-                className="bg-robux-purple hover:bg-robux-purple/80 text-white font-bold py-3 px-6 rounded-xl"
+                className="bg-robux-purple hover:bg-robux-purple/80 text-white font-bold py-4 px-10 rounded-xl text-xl"
               >
                 📱 Скачать Автокликер
               </Button>
@@ -392,34 +465,6 @@ const Index = () => {
         {/* Chat and Support Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           
-          {/* Live Chat */}
-          <Card className="p-6">
-            <h3 className="text-xl font-bold mb-4">💬 Чат игроков</h3>
-            <div className="max-h-64 overflow-y-auto space-y-3 mb-4">
-              {chatMessages.map((msg, index) => (
-                <div key={index} className="flex items-start space-x-3 animate-fade-in">
-                  <span className="text-lg">{msg.avatar}</span>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2">
-                      <span className="font-semibold text-sm text-robux-blue">{msg.name}</span>
-                      <span className="text-xs text-muted-foreground">{msg.time}</span>
-                    </div>
-                    <p className="text-sm text-foreground mt-1">{msg.message}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex space-x-2">
-              <input 
-                type="text" 
-                placeholder="Написать сообщение..." 
-                className="flex-1 px-3 py-2 bg-input border border-border rounded-lg text-sm"
-                disabled
-              />
-              <Button size="sm" disabled className="bg-robux-blue">Отправить</Button>
-            </div>
-          </Card>
-
           {/* Support */}
           <Card className="p-6">
             <h3 className="text-xl font-bold mb-4">🛡️ Служба поддержки</h3>
@@ -461,8 +506,69 @@ const Index = () => {
                   <div>• Не получаю Robux? Проверьте подписку!</div>
                   <div>• Промо-код не работает? Попробуйте позже!</div>
                   <div>• Автокликер безопасен? Да, 100%!</div>
+                  <div>• Блокируют аккаунт? Мы гарантируем безопасность!</div>
+                  <div>• Сколько можно заработать? До 50к Robux в день!</div>
+                  <div>• Работает ли на телефоне? Да, полная поддержка!</div>
+                  <div>• Нужна ли подписка? Только на YouTube канал!</div>
+                  <div>• Можно ли проиграть аккаунт? Нет, это невозможно!</div>
                 </div>
               </div>
+            </div>
+          </Card>
+
+          {/* Live Chat */}
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-4">💬 Чат игроков</h3>
+            <div className="max-h-64 overflow-y-auto space-y-3 mb-4">
+              {chatMessages.map((msg, index) => (
+                <div key={index} className="flex items-start space-x-3 animate-fade-in">
+                  <span className="text-lg">{msg.avatar}</span>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="font-semibold text-sm text-robux-blue">{msg.name}</span>
+                      <span className="text-xs text-muted-foreground">{msg.time}</span>
+                    </div>
+                    <p className="text-sm text-foreground mt-1">{msg.message}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex space-x-2">
+              <input 
+                type="text" 
+                value={chatMessage}
+                onChange={(e) => setChatMessage(e.target.value)}
+                placeholder="Написать сообщение..." 
+                className="flex-1 px-3 py-2 bg-input border border-border rounded-lg text-sm"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && chatMessage.trim()) {
+                    setChatMessages(prev => [{
+                      name: 'Вы',
+                      avatar: '🎮',
+                      message: chatMessage,
+                      time: 'сейчас'
+                    }, ...prev.slice(0, 4)]);
+                    setChatMessage('');
+                  }
+                }}
+              />
+              <Button 
+                size="sm" 
+                className="bg-robux-blue"
+                onClick={() => {
+                  if (chatMessage.trim()) {
+                    setChatMessages(prev => [{
+                      name: 'Вы',
+                      avatar: '🎮',
+                      message: chatMessage,
+                      time: 'сейчас'
+                    }, ...prev.slice(0, 4)]);
+                    setChatMessage('');
+                  }
+                }}
+              >
+                Отправить
+              </Button>
             </div>
           </Card>
         </div>
@@ -513,7 +619,7 @@ const Index = () => {
             <TabsContent value="referral" className="space-y-4">
               <div className="text-center space-y-4">
                 <h3 className="text-xl font-bold">Приглашай друзей</h3>
-                <p className="text-muted-foreground">За каждого друга получи 100 Robux!</p>
+                <p className="text-muted-foreground">За каждого друга получи 1500 Robux!</p>
                 <div className="bg-secondary p-4 rounded-lg">
                   <p className="text-sm mb-2">Твой реферальный код:</p>
                   <div className="bg-background p-2 rounded border font-mono text-robux-blue">
