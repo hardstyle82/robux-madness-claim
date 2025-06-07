@@ -172,10 +172,12 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-update chat
+  // Auto-update chat - ПОЛНОСТЬЮ НОВЫЙ СКРИПТ
   useEffect(() => {
-    const chatInterval = setInterval(() => {
-      const newMessages = [
+    let chatTimer;
+    
+    const updateChatMessages = () => {
+      const messages = [
         'Этот сайт реально работает! Уже 5к робуксов!',
         'Автокликер очень эффективный!',
         'Промо-код сработал! 1000 робуксов!',
@@ -218,32 +220,55 @@ const Index = () => {
         'Лучший способ получить робуксы!'
       ];
       
+      const usernames = [
+        'ProGamer2024', 'RobloxMaster', 'GameKing777', 'NoobDestroyer',
+        'MegaPlayer', 'RobuxFarmer', 'GameLegend', 'ProBuilder2025',
+        'SuperGamer', 'RobuxKing', 'GameHero', 'MasterBuilder',
+        'RobloxPro', 'GameChamp', 'RobuxHunter', 'BlockMaster'
+      ];
+      
+      const avatars = ['🎮', '⚔️', '🏗️', '🚀', '😎', '🎯', '🏆', '⭐', '👑', '🔨', '⚡', '🛠️', '💎', '🧙', '🥷', '🎲'];
+      
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
+      const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+      
+      const newMessage = {
+        name: randomUsername,
+        avatar: randomAvatar,
+        message: randomMessage,
+        time: 'сейчас'
+      };
+      
       setChatMessages(prev => {
-        const recentMessages = prev.slice(0, 6).map(msg => msg.message);
-        const availableMessages = newMessages.filter(msg => !recentMessages.includes(msg));
-        
-        const messageToUse = availableMessages.length > 0 
-          ? availableMessages[Math.floor(Math.random() * availableMessages.length)]
-          : newMessages[Math.floor(Math.random() * newMessages.length)];
-        
-        const randomPlayer = players[Math.floor(Math.random() * players.length)];
-        const newMsg = {
-          name: randomPlayer.name,
-          avatar: randomPlayer.avatar,
-          message: messageToUse,
-          time: 'сейчас'
-        };
-        
-        const updatedMessages = [newMsg, ...prev.slice(0, 4)].map((msg, index) => 
-          index === 0 ? msg : { ...msg, time: updateChatTime(msg.time) }
-        );
-        
-        return updatedMessages;
+        const updated = [newMessage, ...prev.slice(0, 4)];
+        return updated.map((msg, index) => {
+          if (index === 0) return msg;
+          let newTime = msg.time;
+          if (msg.time === 'сейчас') newTime = '1 мин назад';
+          else if (msg.time === '1 мин назад') newTime = '2 мин назад';
+          else if (msg.time === '2 мин назад') newTime = '3 мин назад';
+          else if (msg.time === '3 мин назад') newTime = '4 мин назад';
+          else if (msg.time === '4 мин назад') newTime = '5 мин назад';
+          return { ...msg, time: newTime };
+        });
       });
-    }, Math.floor(Math.random() * 3000) + 3000); // 3-5 секунд
+    };
     
-    return () => clearInterval(chatInterval);
-  }, [players]);
+    const startChatTimer = () => {
+      const randomDelay = Math.floor(Math.random() * 2000) + 2000; // 2-4 секунды
+      chatTimer = setTimeout(() => {
+        updateChatMessages();
+        startChatTimer();
+      }, randomDelay);
+    };
+    
+    startChatTimer();
+    
+    return () => {
+      if (chatTimer) clearTimeout(chatTimer);
+    };
+  }, []);
 
   // Update main progress to match totalRobux
   useEffect(() => {
@@ -301,27 +326,7 @@ const Index = () => {
       setTotalRobux(totalRobux + winAmount);
     }
 
-    // Добавляем выигрыш реального игрока в недавние выигрыши
-    if (winType !== 'promo') {
-      const realPlayerWin = {
-        name: 'Вы',
-        avatar: '🎮',
-        robux: winAmount,
-        time: 'сейчас',
-        isRealPlayer: true
-      };
-      setPlayers(prev => {
-        // Чередуем с рандомными игроками
-        const newPlayers = [...prev];
-        const insertIndex = prev.findIndex((p, i) => i > 0 && !p.isRealPlayer);
-        if (insertIndex === -1) {
-          return [realPlayerWin, ...newPlayers.slice(0, 34)];
-        } else {
-          newPlayers.splice(Math.min(insertIndex, 2), 0, realPlayerWin);
-          return newPlayers.slice(0, 35);
-        }
-      });
-    }
+    // Убрали добавление выигрышей реального игрока
 
     setLastWin({ amount: winAmount, type: winType });
     setShowWinModal(true);
@@ -378,77 +383,91 @@ const Index = () => {
               <h1 className="text-2xl md:text-4xl font-bold text-robux-blue">🎮 FREE ROBUX GENERATOR</h1>
               <p className="text-sm text-muted-foreground">Получай робуксы каждый день бесплатно!</p>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold">Поделиться:</span>
-              <Button size="sm" onClick={() => shareToSocial('vk')} className="bg-blue-600 hover:bg-blue-700">
-                <Share2 className="w-4 h-4 mr-1" />
-                VK
-              </Button>
-              <Button size="sm" onClick={() => shareToSocial('telegram')} className="bg-blue-500 hover:bg-blue-600">
-                <Share2 className="w-4 h-4 mr-1" />
-                TG
-              </Button>
-              <Button size="sm" onClick={() => shareToSocial('whatsapp')} className="bg-green-600 hover:bg-green-700">
-                <Share2 className="w-4 h-4 mr-1" />
-                WA
-              </Button>
+            <div className="social-card p-3">
+              <span className="text-sm font-semibold mb-2 block text-center">📱 Поделиться:</span>
+              <div className="grid grid-cols-4 gap-1">
+                <Button size="sm" onClick={() => shareToSocial('vk')} className="bg-blue-600 hover:bg-blue-700 text-xs animate-pulse">
+                  VK
+                </Button>
+                <Button size="sm" onClick={() => shareToSocial('telegram')} className="bg-blue-500 hover:bg-blue-600 text-xs animate-bounce">
+                  TG
+                </Button>
+                <Button size="sm" onClick={() => shareToSocial('whatsapp')} className="bg-green-600 hover:bg-green-700 text-xs animate-pulse">
+                  WA
+                </Button>
+                <Button size="sm" onClick={() => shareToSocial('twitter')} className="bg-gray-800 hover:bg-gray-900 text-xs animate-bounce">
+                  TW
+                </Button>
+                <Button size="sm" onClick={() => window.open('https://www.youtube.com/', '_blank')} className="bg-red-600 hover:bg-red-700 text-xs animate-pulse">
+                  YT
+                </Button>
+                <Button size="sm" onClick={() => window.open('https://discord.com/', '_blank')} className="bg-purple-600 hover:bg-purple-700 text-xs animate-bounce">
+                  DS
+                </Button>
+                <Button size="sm" onClick={() => window.open('https://www.tiktok.com/', '_blank')} className="bg-pink-600 hover:bg-pink-700 text-xs animate-pulse">
+                  TT
+                </Button>
+                <Button size="sm" onClick={() => window.open('https://www.reddit.com/', '_blank')} className="bg-orange-600 hover:bg-orange-700 text-xs animate-bounce">
+                  RD
+                </Button>
+              </div>
             </div>
           </div>
         </Card>
         
         {/* Analytics Header */}
-        <Card className="stats-card">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-            <div className="text-center">
+        <div className="stats-card pulse-glow">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="text-center bounce-slow">
               <div className="text-lg font-bold text-robux-green">{analytics.visitors.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Посетителей сегодня</div>
             </div>
-            <div className="text-center">
+            <div className="text-center rotate-slow">
               <div className="text-lg font-bold text-robux-gold">{analytics.robuxClaimed.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Robux роздано</div>
             </div>
-            <div className="text-center">
+            <div className="text-center bounce-slow">
               <div className="text-lg font-bold text-robux-blue">{analytics.activeUsers.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Онлайн сейчас</div>
             </div>
           </div>
-        </Card>
+        </div>
 
         {/* Main Progress Bar */}
-        <Card className="p-4">
+        <div className="game-card">
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-bold">Главный прогресс</h2>
-              <span className="text-robux-green font-bold">{mainProgress}/10000</span>
+              <h2 className="text-base font-bold">Главный прогресс</h2>
+              <span className="text-robux-green font-bold text-sm">{totalRobux}/1000</span>
             </div>
-            <Progress value={(mainProgress / 10000) * 100} className="h-3" />
+            <Progress value={(totalRobux / 1000) * 100} className="h-3" />
             <Button 
-              className={`w-full ${canClaimMainReward ? 'bg-robux-green hover:bg-robux-green/80' : ''}`}
+              className={`w-full text-sm ${canClaimMainReward ? 'bg-robux-green hover:bg-robux-green/80' : ''}`}
               disabled={!canClaimMainReward}
               onClick={() => window.open('https://www.youtube.com/@madnessgames_?sub_confirmation=1', '_blank')}
             >
               Забрать Robux! {canClaimMainReward ? '✅' : '🔒'}
             </Button>
           </div>
-        </Card>
+        </div>
 
         {/* Click Progress Bar */}
-        <Card className="p-4">
+        <div className="game-card">
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-bold">Прогресс кликов</h2>
-              <span className="text-robux-purple font-bold">{clickProgress}/1000</span>
+              <h2 className="text-base font-bold">Прогресс кликов</h2>
+              <span className="text-robux-purple font-bold text-sm">{clickProgress}/1000</span>
             </div>
             <Progress value={(clickProgress / 1000) * 100} className="h-3" />
             <Button 
-              className={`w-full ${canClaimClickReward ? 'bg-robux-purple hover:bg-robux-purple/80' : ''}`}
+              className={`w-full text-sm ${canClaimClickReward ? 'bg-robux-purple hover:bg-robux-purple/80' : ''}`}
               disabled={!canClaimClickReward}
               onClick={() => window.open('https://t.me/zarabotay_depin', '_blank')}
             >
               Получить 500 000 R {canClaimClickReward ? '✅' : '🔒'}
             </Button>
           </div>
-        </Card>
+        </div>
 
         {/* Main Claim Section */}
         <Card className="p-4 md:p-8 text-center">
