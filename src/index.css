@@ -6,48 +6,48 @@
 
 @layer base {
   :root {
-    --background: 240 10% 8%;
-    --foreground: 0 0% 98%;
+    --background: 210 40% 98%;
+    --foreground: 222 84% 5%;
 
-    --card: 240 8% 12%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 84% 5%;
 
-    --popover: 240 8% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 84% 5%;
 
     --primary: 200 100% 50%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 8% 16%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 84% 5%;
 
-    --muted: 240 8% 16%;
-    --muted-foreground: 240 5% 60%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 120 100% 50%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 120 100% 40%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 8% 20%;
-    --input: 240 8% 16%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
     --ring: 200 100% 50%;
 
-    --robux-gold: 45 100% 60%;
-    --robux-green: 120 100% 50%;
-    --robux-blue: 200 100% 50%;
-    --robux-purple: 270 100% 60%;
+    --robux-gold: 45 93% 47%;
+    --robux-green: 120 100% 35%;
+    --robux-blue: 200 100% 40%;
+    --robux-purple: 270 100% 40%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 240 10% 8%;
-    --sidebar-foreground: 0 0% 98%;
+    --sidebar-background: 210 40% 98%;
+    --sidebar-foreground: 222 84% 5%;
     --sidebar-primary: 200 100% 50%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 8% 16%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 8% 20%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 84% 5%;
+    --sidebar-border: 214 32% 91%;
     --sidebar-ring: 200 100% 50%;
   }
 }
@@ -59,12 +59,14 @@
 
   body {
     @apply bg-background text-foreground;
-    background-image: 
-      radial-gradient(circle at 20% 50%, hsl(var(--robux-blue)) 0%, transparent 30%),
-      radial-gradient(circle at 80% 20%, hsl(var(--robux-purple)) 0%, transparent 30%),
-      radial-gradient(circle at 40% 80%, hsl(var(--robux-green)) 0%, transparent 30%),
-      radial-gradient(circle at 70% 70%, hsl(var(--robux-gold)) 0%, transparent 25%);
+    background: linear-gradient(135deg, 
+      hsl(var(--background)) 0%, 
+      hsl(210 40% 94%) 25%, 
+      hsl(200 50% 96%) 50%, 
+      hsl(190 40% 94%) 75%, 
+      hsl(var(--background)) 100%);
     background-attachment: fixed;
+    min-height: 100vh;
     position: relative;
     overflow-x: hidden;
   }
@@ -78,15 +80,14 @@
     height: 100%;
     pointer-events: none;
     z-index: -1;
-    opacity: 0.8;
+    opacity: 0.15;
     background-image: 
-      url("data:image/svg+xml,%3Csvg width='150' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='20' y='50' font-size='40' opacity='0.4' fill='%23FFD700'%3E🎮%3C/text%3E%3Ctext x='80' y='100' font-size='35' opacity='0.3' fill='%2300BFFF'%3E👤%3C/text%3E%3Ctext x='50' y='130' font-size='30' opacity='0.35' fill='%2300FF00'%3E🚀%3C/text%3E%3C/svg%3E"),
-      url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='30' y='60' font-size='50' opacity='0.4' fill='%23FF4500'%3E🤖%3C/text%3E%3Ctext x='100' y='120' font-size='40' opacity='0.3' fill='%23FF69B4'%3E👾%3C/text%3E%3Ctext x='140' y='80' font-size='35' opacity='0.35' fill='%239370DB'%3E🦸%3C/text%3E%3C/svg%3E"),
-      url("data:image/svg+xml,%3Csvg width='180' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='40' y='50' font-size='45' opacity='0.4' fill='%23DC143C'%3E🏰%3C/text%3E%3Ctext x='90' y='100' font-size='35' opacity='0.3' fill='%2320B2AA'%3E⚔️%3C/text%3E%3Ctext x='120' y='150' font-size='40' opacity='0.35' fill='%23FFD700'%3E🎯%3C/text%3E%3C/svg%3E"),
-      url("data:image/svg+xml,%3Csvg width='160' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='25' y='45' font-size='40' opacity='0.4' fill='%2332CD32'%3E🎲%3C/text%3E%3Ctext x='80' y='90' font-size='35' opacity='0.3' fill='%23FF1493'%3E👑%3C/text%3E%3Ctext x='110' y='140' font-size='30' opacity='0.35' fill='%2300CED1'%3E🏆%3C/text%3E%3C/svg%3E");
+      url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='15' y='40' font-size='32' fill='%23B8860B'%3E👤%3C/text%3E%3Ctext x='60' y='80' font-size='28' fill='%23228B22'%3E🎮%3C/text%3E%3Ctext x='40' y='110' font-size='24' fill='%230066CC'%3E🚀%3C/text%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg width='150' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='20' y='50' font-size='36' fill='%23FF4500'%3E🤖%3C/text%3E%3Ctext x='80' y='100' font-size='32' fill='%239932CC'%3E⚔️%3C/text%3E%3Ctext x='110' y='70' font-size='28' fill='%23DC143C'%3E🏰%3C/text%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg width='130' height='130' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='25' y='45' font-size='30' fill='%23B8860B'%3E🎲%3C/text%3E%3Ctext x='70' y='85' font-size='26' fill='%23228B22'%3E👑%3C/text%3E%3Ctext x='90' y='120' font-size='22' fill='%230066CC'%3E🏆%3C/text%3E%3C/svg%3E");
     background-repeat: repeat;
-    background-position: 0 0, 150px 150px, 75px 75px, 225px 75px, 300px 225px;
-    animation: floatBackground 40s ease-in-out infinite;
+    background-position: 0 0, 120px 120px, 60px 60px;
+    animation: floatBackground 60s ease-in-out infinite;
   }
 }
 

@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Share2, Timer } from 'lucide-react';
 
 const Index = () => {
   const { toast } = useToast();
@@ -122,6 +123,9 @@ const Index = () => {
 
   // Support data
   const [supportOpen, setSupportOpen] = useState(false);
+  const [vipModalOpen, setVipModalOpen] = useState(false);
+  const [lotteryModalOpen, setLotteryModalOpen] = useState(false);
+  const [lotteryTimeLeft, setLotteryTimeLeft] = useState(86400); // 24 часа в секундах
 
   // Analytics data
   const [analytics] = useState({
@@ -137,6 +141,16 @@ const Index = () => {
       return () => clearTimeout(timer);
     }
   }, [timeLeft]);
+
+  // Lottery timer effect
+  useEffect(() => {
+    if (lotteryTimeLeft > 0) {
+      const timer = setTimeout(() => setLotteryTimeLeft(lotteryTimeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setLotteryTimeLeft(86400); // Сброс на 24 часа
+    }
+  }, [lotteryTimeLeft]);
 
   // Auto-update players
   useEffect(() => {
@@ -162,46 +176,50 @@ const Index = () => {
   useEffect(() => {
     const chatInterval = setInterval(() => {
       const newMessages = [
-        'Бля, этот сайт охуенно работает! Уже 5к робуксов!',
-        'Чекайте автокликер, он дохуя эффективный!',
-        'Ёбаный в рот, промо-код сработал! 1000 робуксов!',
-        'Пиздец как круто! Подписался и сразу робуксы!',
-        'Ребята, не ебите мозги, сайт рабочий!',
-        'Автокликер ваще огонь, сам качайте!',
-        'Блять, как же я раньше без этого жил?!',
-        'Друзья, рефералка дает неплохой бонус!',
-        'МЕГА выигрыш 1000 робуксов! Ахуеть можно!',
-        'Каждый день захожу, ибо нахуй надо робуксы!',
-        'Реально работает, не разводняк какой-то!',
-        'Кто-то знает секреты фарма робуксов?',
+        'Этот сайт реально работает! Уже 5к робуксов!',
+        'Автокликер очень эффективный!',
+        'Промо-код сработал! 1000 робуксов!',
+        'Круто! Подписался и сразу робуксы!',
+        'Ребята, сайт рабочий!',
+        'Автокликер огонь, советую!',
+        'Как же я раньше без этого жил?!',
+        'Друзья, рефералка дает хороший бонус!',
+        'МЕГА выигрыш 1000 робуксов! Невероятно!',
+        'Каждый день захожу, надо робуксы!',
+        'Реально работает, не обман!',
+        'Кто знает секреты фарма робуксов?',
         'Подписался на канал - робуксы потекли рекой!',
-        'Этот фаучет лучше всех, что пробовал!',
+        'Этот фаучет лучше всех!',
         'Друзья, используйте рефералку обязательно!',
         'Только что выиграл промо-код! Спасибо!',
         'Автокликер реально работает, всем советую!',
         'Ребята, этот сайт топовый! Уже куча робуксов!',
-        'Блядь, как быстро робуксы капают с автокликером!',
-        'Пиздато сделан сайт, все честно работает!',
-        'Нахуй другие сайты, этот самый лучший!',
-        'Ебать, сколько я уже тут робуксов заработал!',
-        'Чекайте ежедневный бонус, не забывайте!',
-        'Охуенная реферальная программа, всех приглашаю!',
-        'Бля, как же я кайфую от этих робуксов!',
-        'Нахрена мне работать, когда есть этот сайт?',
+        'Как быстро робуксы капают с автокликером!',
+        'Отлично сделан сайт, все честно работает!',
+        'Лучший сайт из всех!',
+        'Сколько я уже тут робуксов заработал!',
+        'Проверяйте ежедневный бонус, не забывайте!',
+        'Отличная реферальная программа, всех приглашаю!',
+        'Как же я кайфую от этих робуксов!',
+        'Зачем работать, когда есть этот сайт?',
         'Пацаны, кто еще не скачал автокликер - качайте!',
         'Роблокс теперь играется намного интереснее!',
         'Всем рекомендую, лучший фаучет робуксов!',
         'Заработал больше робуксов чем за месяц игры!',
-        'Сука, как быстро робуксы приходят!',
+        'Как быстро робуксы приходят!',
         'Автокликер работает даже когда сплю!',
         'Друзья завидуют моим робуксам теперь!',
-        'Блять, почему я раньше не знал про этот сайт?',
-        'Роблокс стал еще веселее с бесплатными робуксами!'
+        'Почему я раньше не знал про этот сайт?',
+        'Роблокс стал еще веселее с бесплатными робуксами!',
+        'Получил уже 3000 робуксов за день!',
+        'VIP статус того стоит!',
+        'Каждый час новые розыгрыши!',
+        'Безопасный сайт, аккаунт не блокируют!',
+        'Лучший способ получить робуксы!'
       ];
       
       setChatMessages(prev => {
-        // Более умная система против дублирования
-        const recentMessages = prev.slice(0, 8).map(msg => msg.message);
+        const recentMessages = prev.slice(0, 6).map(msg => msg.message);
         const availableMessages = newMessages.filter(msg => !recentMessages.includes(msg));
         
         const messageToUse = availableMessages.length > 0 
@@ -222,7 +240,7 @@ const Index = () => {
         
         return updatedMessages;
       });
-    }, Math.floor(Math.random() * 3000) + 5000); // 5-8 секунд
+    }, Math.floor(Math.random() * 3000) + 3000); // 3-5 секунд
     
     return () => clearInterval(chatInterval);
   }, [players]);
@@ -325,12 +343,58 @@ const Index = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const formatLotteryTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hours}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const shareToSocial = (platform: string) => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('Получаю бесплатные Robux на этом сайте! Присоединяйтесь!');
+    
+    const shareUrls = {
+      vk: `https://vk.com/share.php?url=${url}&title=${text}`,
+      telegram: `https://t.me/share/url?url=${url}&text=${text}`,
+      whatsapp: `https://wa.me/?text=${text}%20${url}`,
+      twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`
+    };
+    
+    window.open(shareUrls[platform], '_blank', 'width=600,height=400');
+  };
+
   const canClaimMainReward = mainProgress >= 10000;
   const canClaimClickReward = clickProgress >= 1000;
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-4">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="min-h-screen bg-background text-foreground p-2 md:p-4">
+      <div className="max-w-7xl mx-auto space-y-4 md:space-y-6">
+        
+        {/* Header with Share Buttons */}
+        <Card className="p-4 text-center">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl md:text-4xl font-bold text-robux-blue">🎮 FREE ROBUX GENERATOR</h1>
+              <p className="text-sm text-muted-foreground">Получай робуксы каждый день бесплатно!</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-semibold">Поделиться:</span>
+              <Button size="sm" onClick={() => shareToSocial('vk')} className="bg-blue-600 hover:bg-blue-700">
+                <Share2 className="w-4 h-4 mr-1" />
+                VK
+              </Button>
+              <Button size="sm" onClick={() => shareToSocial('telegram')} className="bg-blue-500 hover:bg-blue-600">
+                <Share2 className="w-4 h-4 mr-1" />
+                TG
+              </Button>
+              <Button size="sm" onClick={() => shareToSocial('whatsapp')} className="bg-green-600 hover:bg-green-700">
+                <Share2 className="w-4 h-4 mr-1" />
+                WA
+              </Button>
+            </div>
+          </div>
+        </Card>
         
         {/* Analytics Header */}
         <Card className="stats-card">
@@ -387,19 +451,19 @@ const Index = () => {
         </Card>
 
         {/* Main Claim Section */}
-        <Card className="p-8 text-center">
-          <div className="space-y-6">
+        <Card className="p-4 md:p-8 text-center">
+          <div className="space-y-4 md:space-y-6">
             <div className="space-y-2">
-              <h1 className="text-4xl font-bold robux-glow">ROBUX FAUCET</h1>
-              <p className="text-robux-gold font-bold text-xl">Собрано: {totalRobux} Robux</p>
-              <Progress value={(totalRobux / 10000) * 100} className="h-3" />
-              <p className="text-sm text-muted-foreground">До 10000 Robux: {10000 - totalRobux}</p>
+              <h2 className="text-2xl md:text-4xl font-bold text-robux-green">💎 CLAIM ROBUX</h2>
+              <p className="text-robux-gold font-bold text-lg md:text-xl">Собрано: {totalRobux} Robux</p>
+              <Progress value={(totalRobux / 10000) * 100} className="h-2 md:h-3" />
+              <p className="text-xs md:text-sm text-muted-foreground">До 10000 Robux: {10000 - totalRobux}</p>
             </div>
 
             {!isSubscribed && (
               <Button 
                 onClick={handleSubscribe}
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-xl text-lg"
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 md:px-8 rounded-xl text-base md:text-lg w-full md:w-auto"
               >
                 🔔 Подписаться на канал
               </Button>
@@ -408,67 +472,48 @@ const Index = () => {
             <Button 
               onClick={handleClaim}
               disabled={!isSubscribed || timeLeft > 0}
-              className="claim-button text-2xl py-6 px-12"
+              className="claim-button text-lg md:text-2xl py-4 md:py-6 px-8 md:px-12 w-full md:w-auto"
             >
               {timeLeft > 0 ? `ЖДИТЕ ${formatTime(timeLeft)}` : 'CLAIM ROBUX! 💎'}
             </Button>
 
             {timeLeft > 0 && (
               <div className="text-center">
-                <div className="text-3xl font-bold text-robux-blue">{formatTime(timeLeft)}</div>
-                <div className="text-sm text-muted-foreground">до следующего получения</div>
+                <div className="text-2xl md:text-3xl font-bold text-robux-blue">{formatTime(timeLeft)}</div>
+                <div className="text-xs md:text-sm text-muted-foreground">до следующего получения</div>
               </div>
             )}
 
             <div className="space-y-4">
               <Button 
                 onClick={() => window.open('https://filelu.com/87w2jnbpbfls', '_blank')}
-                className="bg-robux-purple hover:bg-robux-purple/80 text-white font-bold py-4 px-10 rounded-xl text-xl"
+                className="bg-robux-purple hover:bg-robux-purple/80 text-white font-bold py-4 md:py-6 px-8 md:px-12 rounded-xl text-lg md:text-2xl w-full md:w-auto"
               >
-                📱 Скачать Автокликер
+                📱 Скачать Автокликер PRO
               </Button>
-              <p className="text-sm text-muted-foreground">
-                Автоматизируй действия с помощью Автокликера
+              <p className="text-xs md:text-sm text-muted-foreground">
+                Автоматизируй получение робуксов 24/7
               </p>
             </div>
           </div>
         </Card>
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Three Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           
-          {/* Recent Activity - All 35 Players */}
-          <Card className="p-6">
-            <h3 className="text-xl font-bold mb-4">🔥 Недавние выигрыши</h3>
-            <div className="max-h-80 overflow-y-auto space-y-2">
-              {players.map((player, index) => (
-                <div key={index} className="player-card flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-lg">{player.avatar}</span>
-                    <div>
-                      <div className="font-semibold text-sm">{player.name}</div>
-                      <div className="text-xs text-muted-foreground">{player.time}</div>
-                    </div>
-                  </div>
-                  <Badge className="bg-robux-gold text-black text-xs">+{player.robux} R$</Badge>
-                </div>
-              ))}
-            </div>
-          </Card>
-
           {/* Live Chat */}
-          <Card className="p-6">
-            <h3 className="text-xl font-bold mb-4">💬 Чат игроков</h3>
-            <div className="max-h-64 overflow-y-auto space-y-3 mb-4">
+          <Card className="p-4 md:p-6">
+            <h3 className="text-lg md:text-xl font-bold mb-4">💬 Чат игроков</h3>
+            <div className="max-h-64 md:max-h-80 overflow-y-auto space-y-2 md:space-y-3 mb-4">
               {chatMessages.map((msg, index) => (
-                <div key={index} className="flex items-start space-x-3 animate-fade-in">
-                  <span className="text-lg">{msg.avatar}</span>
+                <div key={index} className="flex items-start space-x-2 md:space-x-3 animate-fade-in">
+                  <span className="text-base md:text-lg">{msg.avatar}</span>
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
-                      <span className="font-semibold text-sm text-robux-blue">{msg.name}</span>
+                      <span className="font-semibold text-xs md:text-sm text-robux-blue">{msg.name}</span>
                       <span className="text-xs text-muted-foreground">{msg.time}</span>
                     </div>
-                    <p className="text-sm text-foreground mt-1">{msg.message}</p>
+                    <p className="text-xs md:text-sm text-foreground mt-1">{msg.message}</p>
                   </div>
                 </div>
               ))}
@@ -479,7 +524,7 @@ const Index = () => {
                 value={chatMessage}
                 onChange={(e) => setChatMessage(e.target.value)}
                 placeholder="Написать сообщение..." 
-                className="flex-1 px-3 py-2 bg-input border border-border rounded-lg text-sm"
+                className="flex-1 px-2 md:px-3 py-2 bg-input border border-border rounded-lg text-xs md:text-sm"
                 onKeyPress={(e) => {
                   if (e.key === 'Enter' && chatMessage.trim()) {
                     setChatMessages(prev => [{
@@ -494,7 +539,7 @@ const Index = () => {
               />
               <Button 
                 size="sm" 
-                className="bg-robux-blue"
+                className="bg-robux-blue text-xs md:text-sm"
                 onClick={() => {
                   if (chatMessage.trim()) {
                     setChatMessages(prev => [{
@@ -507,51 +552,68 @@ const Index = () => {
                   }
                 }}
               >
-                Отправить
+                📤
               </Button>
             </div>
           </Card>
-        </div>
 
-        {/* Leaderboard and Support Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          
-          {/* Leaderboard */}
-          <Card className="p-6">
-            <h3 className="text-xl font-bold mb-4">🏆 Топ игроков</h3>
-            <div className="space-y-3">
-              {leaderboard.map((player) => (
-                <div key={player.rank} className="player-card flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-full bg-robux-blue flex items-center justify-center text-white font-bold">
-                      {player.rank}
-                    </div>
-                    <span className="text-xl">{player.avatar}</span>
+          {/* Recent Activity - All 35 Players */}
+          <Card className="p-4 md:p-6">
+            <h3 className="text-lg md:text-xl font-bold mb-4">🔥 Недавние выигрыши</h3>
+            <div className="max-h-64 md:max-h-80 overflow-y-auto space-y-1 md:space-y-2">
+              {players.map((player, index) => (
+                <div key={index} className="player-card flex items-center justify-between">
+                  <div className="flex items-center space-x-2 md:space-x-3">
+                    <span className="text-base md:text-lg">{player.avatar}</span>
                     <div>
-                      <div className="font-semibold">{player.name}</div>
+                      <div className="font-semibold text-xs md:text-sm">{player.name}</div>
+                      <div className="text-xs text-muted-foreground">{player.time}</div>
                     </div>
                   </div>
-                  <Badge className="bg-robux-gold text-black">{player.robux.toLocaleString()} R$</Badge>
+                  <Badge className="bg-robux-gold text-black text-xs">+{player.robux} R$</Badge>
                 </div>
               ))}
             </div>
           </Card>
 
-          {/* Support */}
-          <Card className="p-6">
-            <h3 className="text-xl font-bold mb-4">🛡️ Служба поддержки</h3>
+          {/* Leaderboard */}
+          <Card className="p-4 md:p-6">
+            <h3 className="text-lg md:text-xl font-bold mb-4">🏆 Топ игроков</h3>
+            <div className="space-y-2 md:space-y-3">
+              {leaderboard.map((player) => (
+                <div key={player.rank} className="player-card flex items-center justify-between">
+                  <div className="flex items-center space-x-2 md:space-x-3">
+                    <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-robux-blue flex items-center justify-center text-white font-bold text-xs">
+                      {player.rank}
+                    </div>
+                    <span className="text-base md:text-xl">{player.avatar}</span>
+                    <div>
+                      <div className="font-semibold text-xs md:text-sm">{player.name}</div>
+                    </div>
+                  </div>
+                  <Badge className="bg-robux-gold text-black text-xs">{player.robux.toLocaleString()} R$</Badge>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+
+        {/* Support Section */}
+        <Card className="p-4 md:p-6">
+          <h3 className="text-lg md:text-xl font-bold mb-4">🛡️ Служба поддержки</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div className="space-y-4">
-              <div className="bg-secondary p-4 rounded-lg">
+              <div className="bg-secondary p-3 md:p-4 rounded-lg">
                 <div className="flex items-center space-x-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-robux-green flex items-center justify-center">
-                    <span className="text-sm font-bold text-background">S</span>
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-robux-green flex items-center justify-center">
+                    <span className="text-xs md:text-sm font-bold text-background">S</span>
                   </div>
                   <div>
-                    <div className="font-semibold text-sm">Техподдержка</div>
+                    <div className="font-semibold text-xs md:text-sm">Техподдержка</div>
                     <div className="text-xs text-muted-foreground">Онлайн</div>
                   </div>
                 </div>
-                <p className="text-sm text-foreground">
+                <p className="text-xs md:text-sm text-foreground">
                   Привет! У нас есть проблемы? Мы поможем вам получить ваши Robux! 
                   Средний ответ: 2 минуты ⚡
                 </p>
@@ -560,42 +622,46 @@ const Index = () => {
               <div className="space-y-2">
                 <Button 
                   onClick={() => setSupportOpen(true)}
-                  className="w-full bg-robux-green hover:bg-robux-green/80"
+                  className="w-full bg-robux-green hover:bg-robux-green/80 text-xs md:text-sm"
                 >
                   🎧 Связаться с поддержкой
                 </Button>
                 <Button 
                   onClick={() => window.open('https://t.me/zarabotay_depin', '_blank')}
-                  className="w-full bg-robux-blue hover:bg-robux-blue/80"
+                  className="w-full bg-robux-blue hover:bg-robux-blue/80 text-xs md:text-sm"
                 >
                   📞 Telegram поддержка
                 </Button>
               </div>
-
-                <div className="text-center space-y-2">
-                  <div className="text-sm font-semibold text-robux-gold">FAQ</div>
-                  <div className="text-xs text-robux-gold space-y-1">
-                    <div>• Не получаю Robux? Проверьте подписку!</div>
-                    <div>• Промо-код не работает? Попробуйте позже!</div>
-                    <div>• Автокликер безопасен? Да, 100%!</div>
-                    <div>• Блокируют аккаунт? Мы гарантируем безопасность!</div>
-                    <div>• Сколько можно заработать? До 50к Robux в день!</div>
-                    <div>• Работает ли на телефоне? Да, полная поддержка!</div>
-                    <div>• Нужна ли подписка? Только на YouTube канал!</div>
-                    <div>• Можно ли проиграть аккаунт? Нет, это невозможно!</div>
-                    <div>• Безопасны ли мои данные? Абсолютно!</div>
-                    <div>• Могу ли я потерять аккаунт Roblox? Никогда!</div>
-                    <div>• Требуется ли пароль от аккаунта? Нет!</div>
-                    <div>• Работает ли антивирус с автокликером? Да!</div>
-                    <div>• Можно ли получить бан в Roblox? Нет, мы не нарушаем правила!</div>
-                    <div>• Защищен ли мой IP адрес? Да, полная анонимность!</div>
-                    <div>• Может ли Roblox заблокировать мой аккаунт? Нет!</div>
-                    <div>• Сохраняем ли мы ваши пароли? Никогда не спрашиваем пароли!</div>
-                  </div>
-                </div>
             </div>
-          </Card>
-        </div>
+
+            <div className="text-center space-y-2">
+              <div className="text-sm font-semibold text-robux-gold">FAQ - Безопасность</div>
+              <div className="text-xs text-yellow-500 space-y-1 text-left">
+                <div>• Не получаю Robux? Проверьте подписку!</div>
+                <div>• Промо-код не работает? Попробуйте позже!</div>
+                <div>• Автокликер безопасен? Да, 100%!</div>
+                <div>• Блокируют аккаунт? Мы гарантируем безопасность!</div>
+                <div>• Сколько можно заработать? До 50к Robux в день!</div>
+                <div>• Работает ли на телефоне? Да, полная поддержка!</div>
+                <div>• Нужна ли подписка? Только на YouTube канал!</div>
+                <div>• Можно ли проиграть аккаунт? Нет, это невозможно!</div>
+                <div>• Безопасны ли мои данные? Абсолютно!</div>
+                <div>• Могу ли я потерять аккаунт Roblox? Никогда!</div>
+                <div>• Требуется ли пароль от аккаунта? Нет!</div>
+                <div>• Работает ли антивирус с автокликером? Да!</div>
+                <div>• Можно ли получить бан в Roblox? Нет, мы не нарушаем правила!</div>
+                <div>• Защищен ли мой IP адрес? Да, полная анонимность!</div>
+                <div>• Может ли Roblox заблокировать мой аккаунт? Нет!</div>
+                <div>• Сохраняем ли мы ваши пароли? Никогда не спрашиваем пароли!</div>
+                <div>• Могут ли хакеры получить доступ? Нет, 256-битное шифрование!</div>
+                <div>• Безопасен ли автокликер для Windows? Да, проверен антивирусом!</div>
+                <div>• Можно ли использовать на разных устройствах? Да, полная совместимость!</div>
+                <div>• Сохраняется ли прогресс при смене устройства? Да, в облаке!</div>
+              </div>
+            </div>
+          </div>
+        </Card>
 
         {/* Special Features */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -622,13 +688,13 @@ const Index = () => {
         </div>
 
         {/* Additional Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="p-6">
-            <h3 className="text-xl font-bold mb-4 text-robux-gold">🚀 VIP Статус</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <Card className="p-4 md:p-6">
+            <h3 className="text-lg md:text-xl font-bold mb-4 text-robux-gold">🚀 VIP Статус</h3>
             <div className="space-y-3">
-              <p className="text-sm text-muted-foreground">Получите VIP статус и удвойте свои выигрыши!</p>
+              <p className="text-xs md:text-sm text-muted-foreground">Получите VIP статус и удвойте свои выигрыши!</p>
               <div className="bg-gradient-to-r from-robux-gold/20 to-robux-purple/20 p-3 rounded-lg">
-                <div className="text-sm font-semibold">VIP Преимущества:</div>
+                <div className="text-xs md:text-sm font-semibold">VIP Преимущества:</div>
                 <div className="text-xs text-muted-foreground mt-1">
                   • Удвоенные выигрыши<br/>
                   • Эксклюзивные промо-коды<br/>
@@ -636,22 +702,31 @@ const Index = () => {
                   • Специальные бонусы
                 </div>
               </div>
-              <Button className="w-full bg-robux-gold hover:bg-robux-gold/80 text-black">
+              <Button 
+                onClick={() => setVipModalOpen(true)}
+                className="w-full bg-robux-gold hover:bg-robux-gold/80 text-black text-xs md:text-sm"
+              >
                 Получить VIP за 1000 R$
               </Button>
             </div>
           </Card>
           
-          <Card className="p-6">
-            <h3 className="text-xl font-bold mb-4 text-robux-blue">🎁 Ежечасные розыгрыши</h3>
+          <Card className="p-4 md:p-6">
+            <h3 className="text-lg md:text-xl font-bold mb-4 text-robux-blue">🎁 Ежедневные розыгрыши</h3>
             <div className="space-y-3">
-              <p className="text-sm text-muted-foreground">Участвуйте в розыгрышах каждый час!</p>
+              <p className="text-xs md:text-sm text-muted-foreground">Участвуйте в розыгрышах каждый день!</p>
               <div className="bg-gradient-to-r from-robux-blue/20 to-robux-green/20 p-3 rounded-lg">
-                <div className="text-sm font-semibold">Следующий розыгрыш:</div>
-                <div className="text-lg font-bold text-robux-blue">10,000 Robux</div>
-                <div className="text-xs text-muted-foreground">Осталось: 23 минуты</div>
+                <div className="text-xs md:text-sm font-semibold">Следующий розыгрыш:</div>
+                <div className="text-base md:text-lg font-bold text-robux-blue">25,000 Robux</div>
+                <div className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Timer className="w-3 h-3" />
+                  Осталось: {formatLotteryTime(lotteryTimeLeft)}
+                </div>
               </div>
-              <Button className="w-full bg-robux-blue hover:bg-robux-blue/80">
+              <Button 
+                onClick={() => setLotteryModalOpen(true)}
+                className="w-full bg-robux-blue hover:bg-robux-blue/80 text-xs md:text-sm"
+              >
                 Участвовать бесплатно
               </Button>
             </div>
@@ -684,18 +759,18 @@ const Index = () => {
             </TabsContent>
             <TabsContent value="referral" className="space-y-4">
               <div className="text-center space-y-4">
-                <h3 className="text-xl font-bold">Приглашай друзей</h3>
-                <p className="text-muted-foreground">За каждого друга получи 1500 Robux!</p>
-                <div className="bg-secondary p-4 rounded-lg">
-                  <p className="text-sm mb-2">Твоя реферальная ссылка:</p>
+                <h3 className="text-lg md:text-xl font-bold">Приглашай друзей</h3>
+                <p className="text-xs md:text-sm text-muted-foreground">За каждого друга получи 1500 Robux!</p>
+                <div className="bg-secondary p-3 md:p-4 rounded-lg">
+                  <p className="text-xs md:text-sm mb-2">Твоя реферальная ссылка:</p>
                   <div className="bg-background p-2 rounded border font-mono text-robux-blue text-xs break-all">
-                    {`${window.location.origin}?ref=${referralCode}`}
+                    https://robux-generator.pro/?ref={referralCode}
                   </div>
                 </div>
                 <Button 
-                  className="bg-robux-blue hover:bg-robux-blue/80"
+                  className="bg-robux-blue hover:bg-robux-blue/80 text-xs md:text-sm"
                   onClick={() => {
-                    navigator.clipboard.writeText(`${window.location.origin}?ref=${referralCode}`);
+                    navigator.clipboard.writeText(`https://robux-generator.pro/?ref=${referralCode}`);
                     toast({ title: "Ссылка скопирована! 📋" });
                   }}
                 >
@@ -704,6 +779,42 @@ const Index = () => {
               </div>
             </TabsContent>
           </Tabs>
+        </Card>
+
+        {/* Footer */}
+        <Card className="p-4 md:p-6 bg-secondary">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div>
+              <h4 className="font-bold text-robux-blue mb-2">🏢 Наша компания</h4>
+              <div className="text-xs space-y-1">
+                <p>RobuxGen Solutions Ltd.</p>
+                <p>📍 Москва, ул. Геймерская 42</p>
+                <p>📧 support@robuxgen.ru</p>
+                <p>📞 +7 (495) 123-45-67</p>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-bold text-robux-green mb-2">👨‍💻 Разработчики</h4>
+              <div className="text-xs space-y-1">
+                <p>Алексей Петров - CEO</p>
+                <p>📞 +7 (926) 555-01-23</p>
+                <p>Мария Сидорова - CTO</p>
+                <p>📞 +7 (916) 555-45-67</p>
+                <p>Игорь Козлов - Lead Dev</p>
+                <p>📞 +7 (903) 555-89-01</p>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-bold text-robux-gold mb-2">⚖️ Юридическая информация</h4>
+              <div className="text-xs space-y-1">
+                <p>ИНН: 7701234567</p>
+                <p>ОГРН: 1157746123456</p>
+                <p>КПП: 770101001</p>
+                <p>📞 Юрист: +7 (495) 987-65-43</p>
+                <p>© 2024 RobuxGen. Все права защищены.</p>
+              </div>
+            </div>
+          </div>
         </Card>
       </div>
 
@@ -738,6 +849,51 @@ const Index = () => {
           </div>
           <Button onClick={() => setSupportOpen(false)} className="w-full">
             Закрыть
+          </Button>
+        </DialogContent>
+      </Dialog>
+
+      {/* VIP Modal */}
+      <Dialog open={vipModalOpen} onOpenChange={setVipModalOpen}>
+        <DialogContent className="text-center">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">🚀 VIP Статус</DialogTitle>
+          </DialogHeader>
+          <div className="py-6">
+            <div className="text-6xl mb-4">👑</div>
+            <div className="text-lg font-bold text-robux-gold mb-4">
+              Заходи ежедневно в течении 7 дней и получи VIP статус бесплатно!
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Или купи VIP прямо сейчас за 1000 Robux и получи все преимущества немедленно!
+            </p>
+          </div>
+          <Button onClick={() => setVipModalOpen(false)} className="w-full">
+            Понятно
+          </Button>
+        </DialogContent>
+      </Dialog>
+
+      {/* Lottery Modal */}
+      <Dialog open={lotteryModalOpen} onOpenChange={setLotteryModalOpen}>
+        <DialogContent className="text-center">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">🎁 Ежедневный розыгрыш</DialogTitle>
+          </DialogHeader>
+          <div className="py-6">
+            <div className="text-6xl mb-4">🏆</div>
+            <div className="text-lg font-bold text-robux-blue mb-4">
+              Вы успешно участвуете в розыгрыше 25,000 Robux!
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Результаты будут объявлены через: {formatLotteryTime(lotteryTimeLeft)}
+            </p>
+            <p className="text-xs text-muted-foreground mt-2">
+              Увеличьте свои шансы, пригласив друзей!
+            </p>
+          </div>
+          <Button onClick={() => setLotteryModalOpen(false)} className="w-full">
+            Отлично!
           </Button>
         </DialogContent>
       </Dialog>
