@@ -589,7 +589,7 @@ const Index = () => {
             <div className="space-y-4">
               <Button 
                 onClick={() => window.open('https://filelu.com/87w2jnbpbfls', '_blank')}
-                className="bg-gradient-to-r from-robux-orange to-robux-red hover:from-robux-red hover:to-robux-orange text-white font-bold py-4 md:py-6 px-8 md:px-12 rounded-xl text-lg md:text-2xl w-full md:w-auto"
+                className="bg-gradient-to-r from-robux-green to-green-600 hover:from-green-600 hover:to-robux-green text-white font-bold py-4 md:py-6 px-8 md:px-12 rounded-xl text-lg md:text-2xl w-full md:w-auto"
               >
                 📱 Скачать Автокликер PRO
               </Button>
@@ -789,51 +789,6 @@ const Index = () => {
           </Card>
         </div>
 
-        {/* Extra Motivation Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="p-4 text-center bg-gradient-to-br from-purple-900/30 to-pink-900/30 border-purple-500/50">
-            <div className="text-4xl mb-2">🚀</div>
-            <h3 className="font-bold text-lg mb-2 text-purple-400">ЭКСТРА БОНУС!</h3>
-            <p className="text-sm text-purple-200 mb-3">Получи 2500 Robux прямо сейчас!</p>
-            <Button 
-              className="bg-purple-600 hover:bg-purple-700 text-white text-xs"
-              onClick={() => {
-                setTotalRobux(prev => prev + 2500);
-                toast({ title: "ЭКСТРА БОНУС! +2500 Robux! 🚀" });
-              }}
-            >
-              Забрать бонус!
-            </Button>
-          </Card>
-          <Card className="p-4 text-center bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border-yellow-500/50">
-            <div className="text-4xl mb-2">🎁</div>
-            <h3 className="font-bold text-lg mb-2 text-yellow-400">МЕГА ПОДАРОК!</h3>
-            <p className="text-sm text-yellow-200 mb-3">За активность: 5000 Robux!</p>
-            <Button 
-              className="bg-yellow-600 hover:bg-yellow-700 text-white text-xs"
-              onClick={() => {
-                setTotalRobux(prev => prev + 5000);
-                toast({ title: "МЕГА ПОДАРОК! +5000 Robux! 🎁" });
-              }}
-            >
-              Получить подарок!
-            </Button>
-          </Card>
-          <Card className="p-4 text-center bg-gradient-to-br from-red-900/30 to-pink-900/30 border-red-500/50">
-            <div className="text-4xl mb-2">💎</div>
-            <h3 className="font-bold text-lg mb-2 text-red-400">УЛЬТРА ПРИЗ!</h3>
-            <p className="text-sm text-red-200 mb-3">Лимитированный: 10000 Robux!</p>
-            <Button 
-              className="bg-red-600 hover:bg-red-700 text-white text-xs"
-              onClick={() => {
-                setTotalRobux(prev => prev + 10000);
-                toast({ title: "УЛЬТРА ПРИЗ! +10000 Robux! 💎" });
-              }}
-            >
-              Забрать приз!
-            </Button>
-          </Card>
-        </div>
 
         {/* Additional Features */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
