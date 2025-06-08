@@ -181,55 +181,79 @@ const Index = () => {
     const updateChatMessages = () => {
       const messages = [
         'Блин, сайт реально работает! Уже 5к робуксов!',
-        'Автокликер пиздец как эффективный!',
-        'Промо-код сработал! 1000 робуксов, ебать!',
-        'Охуенно! Подписался и сразу робуксы!',
-        'Ребята, сайт рабочий, не ебет мозги!',
-        'Автокликер огонь, всем советую, бля!',
-        'Как же я раньше без этого дерьма жил?!',
+        'Автокликер невероятно эффективный!',
+        'Промо-код сработал! 1000 робуксов, офигеть!',
+        'Классно! Подписался и сразу робуксы!',
+        'Ребята, сайт рабочий, не обманывает!',
+        'Автокликер огонь, всем советую!',
+        'Как же я раньше без этого жил?!',
         'Друзья, рефералка дает хороший бонус!',
-        'МЕГА выигрыш 1000 робуксов! Охуеть!',
-        'Каждый день захожу, надо робуксы нахер!',
+        'МЕГА выигрыш 1000 робуксов! Офигеть!',
+        'Каждый день захожу, получаю робуксы!',
         'Реально работает, не обман какой-то!',
-        'Кто знает секреты фарма робуксов, а?',
+        'Кто знает секреты фарма робуксов?',
         'Подписался на канал - робуксы потекли рекой!',
-        'Этот фаучет лучше всех нахуй!',
-        'Друзья, используйте рефералку, блядь!',
-        'Только что выиграл промо-код! Спасибо, сука!',
-        'Автокликер реально работает, пиздец!',
-        'Ребята, этот сайт топовый! Уже дохера робуксов!',
+        'Этот фаучет лучше всех!',
+        'Друзья, используйте рефералку!',
+        'Только что выиграл промо-код! Спасибо!',
+        'Автокликер реально работает, круто!',
+        'Ребята, этот сайт топовый! Много робуксов!',
         'Как быстро робуксы капают с автокликером!',
         'Отлично сделан сайт, все честно работает!',
-        'Лучший сайт из всех, бля буду!',
-        'Сколько я уже тут робуксов заработал, пиздец!',
+        'Лучший сайт из всех!',
+        'Сколько я уже тут робуксов заработал!',
         'Проверяйте ежедневный бонус, не забывайте!',
         'Отличная реферальная программа!',
-        'Как же я кайфую от этих робуксов, сука!',
+        'Как же я кайфую от этих робуксов!',
         'Зачем работать, когда есть этот сайт?',
         'Пацаны, кто еще не скачал автокликер - качайте!',
         'Роблокс теперь играется намного интереснее!',
         'Всем рекомендую, лучший фаучет робуксов!',
         'Заработал больше робуксов чем за месяц игры!',
-        'Как быстро робуксы приходят, ебать!',
+        'Как быстро робуксы приходят!',
         'Автокликер работает даже когда сплю!',
         'Друзья завидуют моим робуксам теперь!',
-        'Почему я раньше не знал про этот сайт, блядь?',
+        'Почему я раньше не знал про этот сайт?',
         'Роблокс стал еще веселее с бесплатными робуксами!',
         'Получил уже 3000 робуксов за день!',
-        'VIP статус того стоит, сука!',
+        'VIP статус того стоит!',
         'Каждый день новые розыгрыши!',
         'Безопасный сайт, аккаунт не блокируют!',
-        'Лучший способ получить робуксы, пиздец!'
+        'Лучший способ получить робуксы!',
+        'Реально работает этот генератор!',
+        'За неделю накопил 15000 робуксов!',
+        'Сайт честный, никого не обманывает!',
+        'Автокликер просто супер!',
+        'Скачал приложение - теперь без проблем!',
+        'Лучше чем покупать робуксы!',
+        'Всем друзьям показал этот сайт!',
+        'Теперь в роблоксе могу покупать что хочу!',
+        'Офигенная штука этот фаучет!',
+        'Сколько времени экономлю благодаря автокликеру!',
+        'Робуксы приходят моментально!',
+        'Поделился с друзьями - они в восторге!',
+        'Этот сайт изменил мою жизнь в роблоксе!',
+        'Наконец-то нашел рабочий генератор!',
+        'Больше не нужно просить робуксы у родителей!',
+        'Сайт работает без сбоев!',
+        'Классная идея с автокликером!',
+        'Теперь у меня все скины в роблоксе!',
+        'Рефералка приносит отличный доход!',
+        'Безопасно для аккаунта, проверял!'
       ];
       
       const usernames = [
         'ProGamer2024', 'RobloxMaster', 'GameKing777', 'NoobDestroyer',
         'MegaPlayer', 'RobuxFarmer', 'GameLegend', 'ProBuilder2025',
         'SuperGamer', 'RobuxKing', 'GameHero', 'MasterBuilder',
-        'RobloxPro', 'GameChamp', 'RobuxHunter', 'BlockMaster'
+        'RobloxPro', 'GameChamp', 'RobuxHunter', 'BlockMaster',
+        'EliteGamer', 'RobuxLord', 'GameWizard', 'ProPlayer99',
+        'RobloxAce', 'MegaBoss', 'SuperBuilder', 'GameGuru',
+        'RobuxNinja', 'BlockGenius', 'ProGamer777', 'RobloxHero',
+        'GameMaster2024', 'RobuxExpert', 'BlockChampion', 'ProRobloxer'
       ];
       
-      const avatars = ['🎮', '⚔️', '🏗️', '🚀', '😎', '🎯', '🏆', '⭐', '👑', '🔨', '⚡', '🛠️', '💎', '🧙', '🥷', '🎲'];
+      const avatars = ['🎮', '⚔️', '🏗️', '🚀', '😎', '🎯', '🏆', '⭐', '👑', '🔨', '⚡', '🛠️', '💎', '🧙', '🥷', '🎲', '🎪', '🎭', '🎨', '🎻', '🎺', '🎸', '🥁', '🎤'];
       
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
@@ -378,47 +402,39 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground p-2 md:p-4">
       <div className="max-w-7xl mx-auto space-y-4 md:space-y-6">
         
-        {/* Header with Share Buttons */}
+        {/* Header */}
         <Card className="p-4 text-center">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-robux-blue rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
-                <span className="text-white font-black text-2xl">R</span>
-              </div>
-              <div>
-                <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary to-robux-blue bg-clip-text text-transparent">FREE ROBUX GENERATOR</h1>
-                <p className="text-sm text-muted-foreground">Получай робуксы каждый день бесплатно!</p>
-              </div>
+          <div className="flex items-center gap-3 justify-center">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl overflow-hidden">
+              <img 
+                src="/lovable-uploads/4624089c-1ccb-42b4-aa0d-a3ffe5c5a72e.png" 
+                alt="Roblox" 
+                className="w-full h-full object-cover"
+              />
             </div>
-            <div className="social-card p-3">
-              <span className="text-sm font-semibold mb-2 block text-center">📱 Поделиться:</span>
-              <div className="grid grid-cols-4 gap-1">
-                <Button size="sm" onClick={() => shareToSocial('vk')} className="bg-blue-600 hover:bg-blue-700 text-xs animate-pulse">
-                  VK
-                </Button>
-                <Button size="sm" onClick={() => shareToSocial('telegram')} className="bg-blue-500 hover:bg-blue-600 text-xs animate-bounce">
-                  TG
-                </Button>
-                <Button size="sm" onClick={() => shareToSocial('whatsapp')} className="bg-green-600 hover:bg-green-700 text-xs animate-pulse">
-                  WA
-                </Button>
-                <Button size="sm" onClick={() => shareToSocial('twitter')} className="bg-gray-800 hover:bg-gray-900 text-xs animate-bounce">
-                  TW
-                </Button>
-                <Button size="sm" onClick={() => window.open('https://www.youtube.com/', '_blank')} className="bg-red-600 hover:bg-red-700 text-xs animate-pulse">
-                  YT
-                </Button>
-                <Button size="sm" onClick={() => window.open('https://discord.com/', '_blank')} className="bg-purple-600 hover:bg-purple-700 text-xs animate-bounce">
-                  DS
-                </Button>
-                <Button size="sm" onClick={() => window.open('https://www.tiktok.com/', '_blank')} className="bg-pink-600 hover:bg-pink-700 text-xs animate-pulse">
-                  TT
-                </Button>
-                <Button size="sm" onClick={() => window.open('https://www.reddit.com/', '_blank')} className="bg-orange-600 hover:bg-orange-700 text-xs animate-bounce">
-                  RD
-                </Button>
-              </div>
+            <div>
+              <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary to-robux-blue bg-clip-text text-transparent">FREE ROBUX GENERATOR</h1>
+              <p className="text-sm text-muted-foreground">Получай робуксы каждый день бесплатно!</p>
             </div>
+          </div>
+        </Card>
+
+        {/* Daily Bonus Section */}
+        <Card className="p-6">
+          <div className="text-center space-y-4">
+            <h3 className="text-xl font-bold">🎁 Ежедневный бонус</h3>
+            <p className="text-muted-foreground">Заходи каждый день и получай бонусы!</p>
+            <Button 
+              onClick={() => {
+                setDailyBonus(true);
+                setTotalRobux(prev => prev + 50);
+                toast({ title: "Бонус получен! +50 Robux 🎁" });
+              }}
+              disabled={dailyBonus}
+              className="bg-robux-green hover:bg-robux-green/80 text-white"
+            >
+              {dailyBonus ? 'Получено сегодня ✅' : 'Получить бонус +50 R$'}
+            </Button>
           </div>
         </Card>
         
@@ -426,15 +442,15 @@ const Index = () => {
         <div className="stats-card">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="text-center">
-              <div className="text-lg font-bold text-robux-green animate-pulse">{analytics.visitors.toLocaleString()}</div>
+              <div className="text-lg font-bold text-robux-green">{analytics.visitors.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Посетителей сегодня</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-robux-gold animate-bounce">{analytics.robuxClaimed.toLocaleString()}</div>
+              <div className="text-lg font-bold text-robux-gold">{analytics.robuxClaimed.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Robux роздано</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-robux-blue animate-pulse">{analytics.activeUsers.toLocaleString()}</div>
+              <div className="text-lg font-bold text-robux-blue">{analytics.activeUsers.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Онлайн сейчас</div>
             </div>
           </div>
@@ -449,7 +465,7 @@ const Index = () => {
             </div>
             <Progress value={(totalRobux / maxMainProgress) * 100} className="h-4 progress-glow" />
             <Button 
-              className={`roblox-button w-full text-sm ${canClaimMainReward ? 'animate-pulse' : ''}`}
+              className={`roblox-button w-full text-sm`}
               disabled={!canClaimMainReward}
               onClick={() => window.open('https://www.youtube.com/@madnessgames_?sub_confirmation=1', '_blank')}
             >
@@ -467,7 +483,7 @@ const Index = () => {
             </div>
             <Progress value={(clickProgress / maxClickProgress) * 100} className="h-4 progress-glow" />
             <Button 
-              className={`roblox-button w-full text-sm ${canClaimClickReward ? 'animate-bounce' : ''}`}
+              className={`roblox-button w-full text-sm`}
               disabled={!canClaimClickReward}
               onClick={() => window.open('https://t.me/zarabotay_depin', '_blank')}
             >
@@ -498,7 +514,7 @@ const Index = () => {
             <Button 
               onClick={handleClaim}
               disabled={!isSubscribed || timeLeft > 0}
-              className="roblox-button text-lg md:text-2xl py-4 md:py-6 px-8 md:px-12 w-full md:w-auto animate-pulse"
+              className="roblox-button text-lg md:text-2xl py-4 md:py-6 px-8 md:px-12 w-full md:w-auto"
             >
               {timeLeft > 0 ? `ЖДИТЕ ${formatTime(timeLeft)}` : 'CLAIM ROBUX! 💎'}
             </Button>
@@ -513,7 +529,7 @@ const Index = () => {
             <div className="space-y-4">
               <Button 
                 onClick={() => window.open('https://filelu.com/87w2jnbpbfls', '_blank')}
-                className="bg-gradient-to-r from-robux-orange to-robux-red hover:from-robux-red hover:to-robux-orange text-white font-bold py-4 md:py-6 px-8 md:px-12 rounded-xl text-lg md:text-2xl w-full md:w-auto transform hover:scale-105 transition-all duration-200"
+                className="bg-gradient-to-r from-robux-orange to-robux-red hover:from-robux-red hover:to-robux-orange text-white font-bold py-4 md:py-6 px-8 md:px-12 rounded-xl text-lg md:text-2xl w-full md:w-auto"
               >
                 📱 Скачать Автокликер PRO
               </Button>
@@ -532,7 +548,7 @@ const Index = () => {
             <h3 className="text-lg md:text-xl font-bold mb-4">💬 Чат игроков</h3>
             <div className="max-h-64 md:max-h-80 overflow-y-auto space-y-2 md:space-y-3 mb-4">
               {chatMessages.map((msg, index) => (
-                <div key={index} className="flex items-start space-x-2 md:space-x-3 animate-fade-in">
+                <div key={index} className="flex items-start space-x-2 md:space-x-3">
                   <span className="text-base md:text-lg">{msg.avatar}</span>
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
@@ -759,52 +775,60 @@ const Index = () => {
           </Card>
         </div>
 
-        {/* Bonus Section */}
+        {/* Referral Section */}
         <Card className="p-6">
-          <Tabs defaultValue="daily" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="daily">🎁 Ежедневный бонус</TabsTrigger>
-              <TabsTrigger value="referral">👥 Реферальная программа</TabsTrigger>
-            </TabsList>
-            <TabsContent value="daily" className="space-y-4">
-              <div className="text-center space-y-4">
-                <h3 className="text-xl font-bold">Ежедневный бонус</h3>
-                <p className="text-muted-foreground">Заходи каждый день и получай бонусы!</p>
-                <Button 
-                  onClick={() => {
-                    setDailyBonus(true);
-                    setTotalRobux(prev => prev + 50);
-                    toast({ title: "Бонус получен! +50 Robux 🎁" });
-                  }}
-                  disabled={dailyBonus}
-                  className="bg-robux-green hover:bg-robux-green/80"
-                >
-                  {dailyBonus ? 'Получено сегодня ✅' : 'Получить бонус +50 R$'}
-                </Button>
+          <div className="text-center space-y-4">
+            <h3 className="text-lg md:text-xl font-bold">👥 Приглашай друзей</h3>
+            <p className="text-xs md:text-sm text-muted-foreground">За каждого друга получи 1500 Robux!</p>
+            <div className="bg-secondary p-3 md:p-4 rounded-lg">
+              <p className="text-xs md:text-sm mb-2">Твоя реферальная ссылка:</p>
+              <div className="bg-background p-2 rounded border font-mono text-robux-blue text-xs break-all">
+                https://robux-generator.pro/?ref={referralCode}
               </div>
-            </TabsContent>
-            <TabsContent value="referral" className="space-y-4">
-              <div className="text-center space-y-4">
-                <h3 className="text-lg md:text-xl font-bold">Приглашай друзей</h3>
-                <p className="text-xs md:text-sm text-muted-foreground">За каждого друга получи 1500 Robux!</p>
-                <div className="bg-secondary p-3 md:p-4 rounded-lg">
-                  <p className="text-xs md:text-sm mb-2">Твоя реферальная ссылка:</p>
-                  <div className="bg-background p-2 rounded border font-mono text-robux-blue text-xs break-all">
-                    https://robux-generator.pro/?ref={referralCode}
-                  </div>
-                </div>
-                <Button 
-                  className="bg-robux-blue hover:bg-robux-blue/80 text-xs md:text-sm"
-                  onClick={() => {
-                    navigator.clipboard.writeText(`https://robux-generator.pro/?ref=${referralCode}`);
-                    toast({ title: "Ссылка скопирована! 📋" });
-                  }}
-                >
-                  Скопировать ссылку
-                </Button>
-              </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+            <Button 
+              className="bg-robux-blue hover:bg-robux-blue/80 text-xs md:text-sm text-white"
+              onClick={() => {
+                navigator.clipboard.writeText(`https://robux-generator.pro/?ref=${referralCode}`);
+                toast({ title: "Ссылка скопирована! 📋" });
+              }}
+            >
+              Скопировать ссылку
+            </Button>
+          </div>
+        </Card>
+
+        {/* Social Share Section */}
+        <Card className="p-4">
+          <div className="text-center">
+            <h3 className="text-lg font-bold mb-4">📱 Поделиться в соцсетях</h3>
+            <div className="flex flex-wrap justify-center gap-2">
+              <Button size="sm" onClick={() => shareToSocial('vk')} className="bg-blue-600 hover:bg-blue-700 text-white text-xs">
+                🔗 VKontakte
+              </Button>
+              <Button size="sm" onClick={() => shareToSocial('telegram')} className="bg-blue-500 hover:bg-blue-600 text-white text-xs">
+                📱 Telegram
+              </Button>
+              <Button size="sm" onClick={() => shareToSocial('whatsapp')} className="bg-green-600 hover:bg-green-700 text-white text-xs">
+                💬 WhatsApp
+              </Button>
+              <Button size="sm" onClick={() => shareToSocial('twitter')} className="bg-gray-800 hover:bg-gray-900 text-white text-xs">
+                🐦 Twitter
+              </Button>
+              <Button size="sm" onClick={() => window.open('https://www.youtube.com/', '_blank')} className="bg-red-600 hover:bg-red-700 text-white text-xs">
+                📺 YouTube
+              </Button>
+              <Button size="sm" onClick={() => window.open('https://discord.com/', '_blank')} className="bg-purple-600 hover:bg-purple-700 text-white text-xs">
+                🎮 Discord
+              </Button>
+              <Button size="sm" onClick={() => window.open('https://www.tiktok.com/', '_blank')} className="bg-pink-600 hover:bg-pink-700 text-white text-xs">
+                📹 TikTok
+              </Button>
+              <Button size="sm" onClick={() => window.open('https://www.reddit.com/', '_blank')} className="bg-orange-600 hover:bg-orange-700 text-white text-xs">
+                📰 Reddit
+              </Button>
+            </div>
+          </div>
         </Card>
 
         {/* Footer */}
