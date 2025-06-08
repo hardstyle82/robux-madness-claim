@@ -42,8 +42,10 @@ const Index = () => {
   const [claimCount, setClaimCount] = useState(savedData.claimCount);
   const [timeLeft, setTimeLeft] = useState(0);
   const [totalRobux, setTotalRobux] = useState(savedData.totalRobux);
-  const [mainProgress, setMainProgress] = useState(0); // Начинается с 0
+  const [mainProgress, setMainProgress] = useState(savedData.totalRobux);
   const [clickProgress, setClickProgress] = useState(savedData.clickProgress);
+  const maxMainProgress = 10000;
+  const maxClickProgress = 1500;
   const [showWinModal, setShowWinModal] = useState(false);
   const [lastWin, setLastWin] = useState({ amount: 0, type: 'robux' });
   const [dailyBonus, setDailyBonus] = useState(savedData.dailyBonus);
@@ -178,46 +180,46 @@ const Index = () => {
     
     const updateChatMessages = () => {
       const messages = [
-        'Этот сайт реально работает! Уже 5к робуксов!',
-        'Автокликер очень эффективный!',
-        'Промо-код сработал! 1000 робуксов!',
-        'Круто! Подписался и сразу робуксы!',
-        'Ребята, сайт рабочий!',
-        'Автокликер огонь, советую!',
-        'Как же я раньше без этого жил?!',
+        'Блин, сайт реально работает! Уже 5к робуксов!',
+        'Автокликер пиздец как эффективный!',
+        'Промо-код сработал! 1000 робуксов, ебать!',
+        'Охуенно! Подписался и сразу робуксы!',
+        'Ребята, сайт рабочий, не ебет мозги!',
+        'Автокликер огонь, всем советую, бля!',
+        'Как же я раньше без этого дерьма жил?!',
         'Друзья, рефералка дает хороший бонус!',
-        'МЕГА выигрыш 1000 робуксов! Невероятно!',
-        'Каждый день захожу, надо робуксы!',
-        'Реально работает, не обман!',
-        'Кто знает секреты фарма робуксов?',
+        'МЕГА выигрыш 1000 робуксов! Охуеть!',
+        'Каждый день захожу, надо робуксы нахер!',
+        'Реально работает, не обман какой-то!',
+        'Кто знает секреты фарма робуксов, а?',
         'Подписался на канал - робуксы потекли рекой!',
-        'Этот фаучет лучше всех!',
-        'Друзья, используйте рефералку обязательно!',
-        'Только что выиграл промо-код! Спасибо!',
-        'Автокликер реально работает, всем советую!',
-        'Ребята, этот сайт топовый! Уже куча робуксов!',
+        'Этот фаучет лучше всех нахуй!',
+        'Друзья, используйте рефералку, блядь!',
+        'Только что выиграл промо-код! Спасибо, сука!',
+        'Автокликер реально работает, пиздец!',
+        'Ребята, этот сайт топовый! Уже дохера робуксов!',
         'Как быстро робуксы капают с автокликером!',
         'Отлично сделан сайт, все честно работает!',
-        'Лучший сайт из всех!',
-        'Сколько я уже тут робуксов заработал!',
+        'Лучший сайт из всех, бля буду!',
+        'Сколько я уже тут робуксов заработал, пиздец!',
         'Проверяйте ежедневный бонус, не забывайте!',
-        'Отличная реферальная программа, всех приглашаю!',
-        'Как же я кайфую от этих робуксов!',
+        'Отличная реферальная программа!',
+        'Как же я кайфую от этих робуксов, сука!',
         'Зачем работать, когда есть этот сайт?',
         'Пацаны, кто еще не скачал автокликер - качайте!',
         'Роблокс теперь играется намного интереснее!',
         'Всем рекомендую, лучший фаучет робуксов!',
         'Заработал больше робуксов чем за месяц игры!',
-        'Как быстро робуксы приходят!',
+        'Как быстро робуксы приходят, ебать!',
         'Автокликер работает даже когда сплю!',
         'Друзья завидуют моим робуксам теперь!',
-        'Почему я раньше не знал про этот сайт?',
+        'Почему я раньше не знал про этот сайт, блядь?',
         'Роблокс стал еще веселее с бесплатными робуксами!',
         'Получил уже 3000 робуксов за день!',
-        'VIP статус того стоит!',
-        'Каждый час новые розыгрыши!',
+        'VIP статус того стоит, сука!',
+        'Каждый день новые розыгрыши!',
         'Безопасный сайт, аккаунт не блокируют!',
-        'Лучший способ получить робуксы!'
+        'Лучший способ получить робуксы, пиздец!'
       ];
       
       const usernames = [
@@ -369,8 +371,8 @@ const Index = () => {
     window.open(shareUrls[platform], '_blank', 'width=600,height=400');
   };
 
-  const canClaimMainReward = mainProgress >= 10000;
-  const canClaimClickReward = clickProgress >= 1000;
+  const canClaimMainReward = mainProgress >= maxMainProgress;
+  const canClaimClickReward = clickProgress >= maxClickProgress;
 
   return (
     <div className="min-h-screen bg-background text-foreground p-2 md:p-4">
@@ -378,10 +380,15 @@ const Index = () => {
         
         {/* Header with Share Buttons */}
         <Card className="p-4 text-center">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl md:text-4xl font-bold text-robux-blue">🎮 FREE ROBUX GENERATOR</h1>
-              <p className="text-sm text-muted-foreground">Получай робуксы каждый день бесплатно!</p>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-robux-blue rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
+                <span className="text-white font-black text-2xl">R</span>
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary to-robux-blue bg-clip-text text-transparent">FREE ROBUX GENERATOR</h1>
+                <p className="text-sm text-muted-foreground">Получай робуксы каждый день бесплатно!</p>
+              </div>
             </div>
             <div className="social-card p-3">
               <span className="text-sm font-semibold mb-2 block text-center">📱 Поделиться:</span>
@@ -416,67 +423,67 @@ const Index = () => {
         </Card>
         
         {/* Analytics Header */}
-        <div className="stats-card pulse-glow">
+        <div className="stats-card">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="text-center bounce-slow">
-              <div className="text-lg font-bold text-robux-green">{analytics.visitors.toLocaleString()}</div>
+            <div className="text-center">
+              <div className="text-lg font-bold text-robux-green animate-pulse">{analytics.visitors.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Посетителей сегодня</div>
             </div>
-            <div className="text-center rotate-slow">
-              <div className="text-lg font-bold text-robux-gold">{analytics.robuxClaimed.toLocaleString()}</div>
+            <div className="text-center">
+              <div className="text-lg font-bold text-robux-gold animate-bounce">{analytics.robuxClaimed.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Robux роздано</div>
             </div>
-            <div className="text-center bounce-slow">
-              <div className="text-lg font-bold text-robux-blue">{analytics.activeUsers.toLocaleString()}</div>
+            <div className="text-center">
+              <div className="text-lg font-bold text-robux-blue animate-pulse">{analytics.activeUsers.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Онлайн сейчас</div>
             </div>
           </div>
         </div>
 
         {/* Main Progress Bar */}
-        <div className="game-card">
+        <div className="roblox-card">
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <h2 className="text-base font-bold">Главный прогресс</h2>
-              <span className="text-robux-green font-bold text-sm">{totalRobux}/1000</span>
+              <h2 className="text-base font-bold text-primary">Главный прогресс</h2>
+              <span className="text-robux-green font-bold text-sm">{totalRobux}/{maxMainProgress}</span>
             </div>
-            <Progress value={(totalRobux / 1000) * 100} className="h-3" />
+            <Progress value={(totalRobux / maxMainProgress) * 100} className="h-4 progress-glow" />
             <Button 
-              className={`w-full text-sm ${canClaimMainReward ? 'bg-robux-green hover:bg-robux-green/80' : ''}`}
+              className={`roblox-button w-full text-sm ${canClaimMainReward ? 'animate-pulse' : ''}`}
               disabled={!canClaimMainReward}
               onClick={() => window.open('https://www.youtube.com/@madnessgames_?sub_confirmation=1', '_blank')}
             >
-              Забрать Robux! {canClaimMainReward ? '✅' : '🔒'}
+              {canClaimMainReward ? 'Забрать Robux! ✅' : `Нужно ${maxMainProgress - totalRobux} Robux 🔒`}
             </Button>
           </div>
         </div>
 
         {/* Click Progress Bar */}
-        <div className="game-card">
+        <div className="roblox-card">
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <h2 className="text-base font-bold">Прогресс кликов</h2>
-              <span className="text-robux-purple font-bold text-sm">{clickProgress}/1000</span>
+              <h2 className="text-base font-bold text-accent">Прогресс кликов</h2>
+              <span className="text-robux-orange font-bold text-sm">{clickProgress}/{maxClickProgress}</span>
             </div>
-            <Progress value={(clickProgress / 1000) * 100} className="h-3" />
+            <Progress value={(clickProgress / maxClickProgress) * 100} className="h-4 progress-glow" />
             <Button 
-              className={`w-full text-sm ${canClaimClickReward ? 'bg-robux-purple hover:bg-robux-purple/80' : ''}`}
+              className={`roblox-button w-full text-sm ${canClaimClickReward ? 'animate-bounce' : ''}`}
               disabled={!canClaimClickReward}
               onClick={() => window.open('https://t.me/zarabotay_depin', '_blank')}
             >
-              Получить 500 000 R {canClaimClickReward ? '✅' : '🔒'}
+              {canClaimClickReward ? 'Получить 500 000 R ✅' : `Нужно ${maxClickProgress - clickProgress} кликов 🔒`}
             </Button>
           </div>
         </div>
 
         {/* Main Claim Section */}
-        <Card className="p-4 md:p-8 text-center">
+        <div className="roblox-card text-center">
           <div className="space-y-4 md:space-y-6">
             <div className="space-y-2">
-              <h2 className="text-2xl md:text-4xl font-bold text-robux-green">💎 CLAIM ROBUX</h2>
+              <h2 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">💎 CLAIM ROBUX</h2>
               <p className="text-robux-gold font-bold text-lg md:text-xl">Собрано: {totalRobux} Robux</p>
-              <Progress value={(totalRobux / 10000) * 100} className="h-2 md:h-3" />
-              <p className="text-xs md:text-sm text-muted-foreground">До 10000 Robux: {10000 - totalRobux}</p>
+              <Progress value={(totalRobux / maxMainProgress) * 100} className="h-3 md:h-4 progress-glow" />
+              <p className="text-xs md:text-sm text-muted-foreground">До {maxMainProgress} Robux: {maxMainProgress - totalRobux}</p>
             </div>
 
             {!isSubscribed && (
@@ -491,7 +498,7 @@ const Index = () => {
             <Button 
               onClick={handleClaim}
               disabled={!isSubscribed || timeLeft > 0}
-              className="claim-button text-lg md:text-2xl py-4 md:py-6 px-8 md:px-12 w-full md:w-auto"
+              className="roblox-button text-lg md:text-2xl py-4 md:py-6 px-8 md:px-12 w-full md:w-auto animate-pulse"
             >
               {timeLeft > 0 ? `ЖДИТЕ ${formatTime(timeLeft)}` : 'CLAIM ROBUX! 💎'}
             </Button>
@@ -506,7 +513,7 @@ const Index = () => {
             <div className="space-y-4">
               <Button 
                 onClick={() => window.open('https://filelu.com/87w2jnbpbfls', '_blank')}
-                className="bg-robux-purple hover:bg-robux-purple/80 text-white font-bold py-4 md:py-6 px-8 md:px-12 rounded-xl text-lg md:text-2xl w-full md:w-auto"
+                className="bg-gradient-to-r from-robux-orange to-robux-red hover:from-robux-red hover:to-robux-orange text-white font-bold py-4 md:py-6 px-8 md:px-12 rounded-xl text-lg md:text-2xl w-full md:w-auto transform hover:scale-105 transition-all duration-200"
               >
                 📱 Скачать Автокликер PRO
               </Button>
@@ -515,7 +522,7 @@ const Index = () => {
               </p>
             </div>
           </div>
-        </Card>
+        </div>
 
         {/* Three Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">

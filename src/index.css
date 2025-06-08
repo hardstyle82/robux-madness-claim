@@ -6,49 +6,50 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 84% 5%;
+    --background: 215 25% 95%;
+    --foreground: 220 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 84% 5%;
+    --card-foreground: 220 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 5%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 200 100% 50%;
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 84% 5%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 15% 15%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 13% 47%;
 
-    --accent: 120 100% 40%;
+    --accent: 142 76% 36%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 200 100% 50%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
 
     --robux-gold: 45 93% 47%;
-    --robux-green: 120 100% 35%;
-    --robux-blue: 200 100% 40%;
-    --robux-purple: 270 100% 40%;
+    --robux-green: 142 76% 36%;
+    --robux-blue: 221 83% 53%;
+    --robux-orange: 29 92% 57%;
+    --robux-red: 355 85% 63%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --sidebar-background: 210 40% 98%;
-    --sidebar-foreground: 222 84% 5%;
-    --sidebar-primary: 200 100% 50%;
+    --sidebar-background: 215 25% 95%;
+    --sidebar-foreground: 220 15% 15%;
+    --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 210 40% 96%;
-    --sidebar-accent-foreground: 222 84% 5%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 200 100% 50%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 220 15% 15%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 221 83% 53%;
   }
 }
 
@@ -90,15 +91,46 @@
   }
 
   .stats-card {
-    @apply bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-lg p-4 shadow-xl;
+    @apply bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl p-4 shadow-xl transform hover:scale-105 transition-all duration-300;
   }
   
   .game-card {
-    @apply bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 rounded-lg p-4 shadow-xl;
+    @apply bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 rounded-xl p-4 shadow-xl transform hover:scale-105 transition-all duration-300;
   }
   
   .social-card {
-    @apply bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 rounded-lg p-4 shadow-xl;
+    @apply bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 rounded-xl p-4 shadow-xl transform hover:scale-105 transition-all duration-300;
+  }
+
+  .roblox-card {
+    @apply bg-gradient-to-br from-primary/10 to-primary/20 border-2 border-primary/30 rounded-xl p-6 shadow-2xl;
+  }
+  
+  .roblox-button {
+    @apply bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 
+           text-primary-foreground font-bold py-3 px-6 rounded-xl shadow-lg transform hover:scale-105 
+           transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed 
+           disabled:transform-none disabled:from-muted disabled:to-muted;
+  }
+
+  .progress-glow {
+    @apply relative overflow-hidden;
+  }
+  
+  .progress-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
   }
   
   .pulse-glow {
