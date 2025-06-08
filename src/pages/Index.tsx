@@ -174,13 +174,14 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-update chat - ПОЛНОСТЬЮ НОВЫЙ СКРИПТ
+  // Auto-update chat - РАНДОМИЗИРОВАННЫЙ СКРИПТ
   useEffect(() => {
     let chatTimer;
     
     const updateChatMessages = () => {
-      const messages = [
-        'Блин, сайт реально работает! Уже 5к робуксов!',
+      // Обычные сообщения (60%)
+      const normalMessages = [
+        'Сайт реально работает! Уже 5к робуксов!',
         'Автокликер невероятно эффективный!',
         'Промо-код сработал! 1000 робуксов, офигеть!',
         'Классно! Подписался и сразу робуксы!',
@@ -188,21 +189,21 @@ const Index = () => {
         'Автокликер огонь, всем советую!',
         'Как же я раньше без этого жил?!',
         'Друзья, рефералка дает хороший бонус!',
-        'МЕГА выигрыш 1000 робуксов! Офигеть!',
+        'МЕГА выигрыш 1000 робуксов!',
         'Каждый день захожу, получаю робуксы!',
-        'Реально работает, не обман какой-то!',
+        'Реально работает, не обман!',
         'Кто знает секреты фарма робуксов?',
         'Подписался на канал - робуксы потекли рекой!',
         'Этот фаучет лучше всех!',
         'Друзья, используйте рефералку!',
         'Только что выиграл промо-код! Спасибо!',
-        'Автокликер реально работает, круто!',
+        'Автокликер реально работает!',
         'Ребята, этот сайт топовый! Много робуксов!',
         'Как быстро робуксы капают с автокликером!',
         'Отлично сделан сайт, все честно работает!',
         'Лучший сайт из всех!',
         'Сколько я уже тут робуксов заработал!',
-        'Проверяйте ежедневный бонус, не забывайте!',
+        'Проверяйте ежедневный бонус!',
         'Отличная реферальная программа!',
         'Как же я кайфую от этих робуксов!',
         'Зачем работать, когда есть этот сайт?',
@@ -242,6 +243,49 @@ const Index = () => {
         'Безопасно для аккаунта, проверял!'
       ];
       
+      // Матные сообщения (30%)
+      const swearMessages = [
+        'Бля, сколько робуксов! Охеренно!',
+        'Нахрен покупать, когда тут дают!',
+        'Блядь, автокликер реально работает!',
+        'Охрененный сайт, получил кучу робуксов!',
+        'Какого хрена я раньше не знал про это?',
+        'Блин, да это пиздец как круто!',
+        'Сука, столько робуксов за день!',
+        'Охрененно! Друзья завидуют!',
+        'Блядь, лучше всех сайтов!',
+        'Нихрена себе, 5000 робуксов!',
+        'Пиздец, автокликер огонь!',
+        'Охуенно! Родители в шоке!',
+        'Бля, промо-код прям сработал!',
+        'Нахрен платить, когда тут дарят!',
+        'Сука, как же круто!',
+        'Блядь, реферка дает дохрена!',
+        'Охрененный генератор робуксов!',
+        'Пиздец, как быстро робуксы идут!',
+        'Бля, VIP статус просто огонь!',
+        'Нихера, столько за день заработал!'
+      ];
+      
+      // Английские сообщения (10%)
+      const englishMessages = [
+        'OMG this site actually works!',
+        'FREE ROBUX! Thank you so much!',
+        'Best robux generator ever!',
+        'Amazing! Got 1000 robux instantly!',
+        'This is incredible! So many robux!',
+        'Thank you for free robux!',
+        'Wow! Auto clicker is amazing!',
+        'Perfect! Works like a charm!',
+        'Awesome site! Highly recommend!',
+        'Got VIP status! So cool!',
+        'Daily bonus is great!',
+        'Referral system works perfectly!',
+        'Love this robux generator!',
+        'Finally found working generator!',
+        'Safe and secure! Amazing!'
+      ];
+      
       const usernames = [
         'ProGamer2024', 'RobloxMaster', 'GameKing777', 'NoobDestroyer',
         'MegaPlayer', 'RobuxFarmer', 'GameLegend', 'ProBuilder2025',
@@ -250,19 +294,35 @@ const Index = () => {
         'EliteGamer', 'RobuxLord', 'GameWizard', 'ProPlayer99',
         'RobloxAce', 'MegaBoss', 'SuperBuilder', 'GameGuru',
         'RobuxNinja', 'BlockGenius', 'ProGamer777', 'RobloxHero',
-        'GameMaster2024', 'RobuxExpert', 'BlockChampion', 'ProRobloxer'
+        'GameMaster2024', 'RobuxExpert', 'BlockChampion', 'ProRobloxer',
+        'xXx_Gamer_xXx', 'BuilderGod', 'RobuxKilla', 'GameLord',
+        'ProNoob', 'RobuxMachine', 'BlockDestroyer', 'UltraGamer'
       ];
       
-      const avatars = ['🎮', '⚔️', '🏗️', '🚀', '😎', '🎯', '🏆', '⭐', '👑', '🔨', '⚡', '🛠️', '💎', '🧙', '🥷', '🎲', '🎪', '🎭', '🎨', '🎻', '🎺', '🎸', '🥁', '🎤'];
+      const avatars = ['🎮', '⚔️', '🏗️', '🚀', '😎', '🎯', '🏆', '⭐', '👑', '🔨', '⚡', '🛠️', '💎', '🧙', '🥷', '🎲', '🎪', '🎭', '🎨', '🔥', '💀', '👻', '🤖', '🦄'];
       
-      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      // Выбираем тип сообщения по процентам
+      const random = Math.random();
+      let selectedMessage;
+      
+      if (random < 0.30) {
+        // 30% мат
+        selectedMessage = swearMessages[Math.floor(Math.random() * swearMessages.length)];
+      } else if (random < 0.40) {
+        // 10% английский
+        selectedMessage = englishMessages[Math.floor(Math.random() * englishMessages.length)];
+      } else {
+        // 60% обычные
+        selectedMessage = normalMessages[Math.floor(Math.random() * normalMessages.length)];
+      }
+      
       const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
       const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
       
       const newMessage = {
         name: randomUsername,
         avatar: randomAvatar,
-        message: randomMessage,
+        message: selectedMessage,
         time: 'сейчас'
       };
       
@@ -419,11 +479,11 @@ const Index = () => {
           </div>
         </Card>
 
-        {/* Daily Bonus Section */}
-        <Card className="p-6">
-          <div className="text-center space-y-4">
-            <h3 className="text-xl font-bold">🎁 Ежедневный бонус</h3>
-            <p className="text-muted-foreground">Заходи каждый день и получай бонусы!</p>
+        {/* Daily Bonus Section - Компактная версия */}
+        <Card className="p-3">
+          <div className="text-center space-y-2">
+            <h3 className="text-lg font-bold">🎁 Ежедневный бонус</h3>
+            <p className="text-xs text-muted-foreground">Заходи каждый день и получай бонусы!</p>
             <Button 
               onClick={() => {
                 setDailyBonus(true);
@@ -431,7 +491,7 @@ const Index = () => {
                 toast({ title: "Бонус получен! +50 Robux 🎁" });
               }}
               disabled={dailyBonus}
-              className="bg-robux-green hover:bg-robux-green/80 text-white"
+              className="bg-robux-green hover:bg-robux-green/80 text-white text-sm py-2"
             >
               {dailyBonus ? 'Получено сегодня ✅' : 'Получить бонус +50 R$'}
             </Button>
@@ -456,38 +516,38 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Main Progress Bar */}
+        {/* Main Progress Bar - Компактная версия */}
         <div className="roblox-card">
-          <div className="space-y-3">
+          <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <h2 className="text-base font-bold text-primary">Главный прогресс</h2>
-              <span className="text-robux-green font-bold text-sm">{totalRobux}/{maxMainProgress}</span>
+              <h2 className="text-sm font-bold text-primary">Главный прогресс</h2>
+              <span className="text-robux-green font-bold text-xs">{totalRobux}/{maxMainProgress}</span>
             </div>
-            <Progress value={(totalRobux / maxMainProgress) * 100} className="h-4 progress-glow" />
+            <Progress value={(totalRobux / maxMainProgress) * 100} className="h-3 progress-glow" />
             <Button 
-              className={`roblox-button w-full text-sm`}
+              className={`roblox-button w-full text-xs py-2`}
               disabled={!canClaimMainReward}
               onClick={() => window.open('https://www.youtube.com/@madnessgames_?sub_confirmation=1', '_blank')}
             >
-              {canClaimMainReward ? 'Забрать Robux! ✅' : `Нужно ${maxMainProgress - totalRobux} Robux 🔒`}
+              {canClaimMainReward ? 'Получить 10000 Робуксов! ✅' : `Нужно ${maxMainProgress - totalRobux} Robux 🔒`}
             </Button>
           </div>
         </div>
 
-        {/* Click Progress Bar */}
+        {/* Click Progress Bar - Компактная версия */}
         <div className="roblox-card">
-          <div className="space-y-3">
+          <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <h2 className="text-base font-bold text-accent">Прогресс кликов</h2>
-              <span className="text-robux-orange font-bold text-sm">{clickProgress}/{maxClickProgress}</span>
+              <h2 className="text-sm font-bold text-accent">Прогресс кликов</h2>
+              <span className="text-robux-orange font-bold text-xs">{clickProgress}/{maxClickProgress}</span>
             </div>
-            <Progress value={(clickProgress / maxClickProgress) * 100} className="h-4 progress-glow" />
+            <Progress value={(clickProgress / maxClickProgress) * 100} className="h-3 progress-glow" />
             <Button 
-              className={`roblox-button w-full text-sm`}
+              className={`roblox-button w-full text-xs py-2`}
               disabled={!canClaimClickReward}
               onClick={() => window.open('https://t.me/zarabotay_depin', '_blank')}
             >
-              {canClaimClickReward ? 'Получить 500 000 R ✅' : `Нужно ${maxClickProgress - clickProgress} кликов 🔒`}
+              {canClaimClickReward ? 'Получить 500 000 Робуксов! ✅' : `Нужно ${maxClickProgress - clickProgress} кликов 🔒`}
             </Button>
           </div>
         </div>
@@ -705,27 +765,73 @@ const Index = () => {
           </div>
         </Card>
 
-        {/* Special Features */}
+        {/* Special Features - Мотивирующие блоки */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="p-4 text-center">
-            <div className="text-3xl mb-2">🎯</div>
-            <h3 className="font-bold text-base mb-1">Без лимитов</h3>
-            <p className="text-xs text-muted-foreground">Получайте Robux без ограничений времени!</p>
+          <Card className="p-4 text-center bg-gradient-to-br from-robux-green/20 to-robux-blue/20 border-robux-green/50">
+            <div className="text-3xl mb-2">💰</div>
+            <h3 className="font-bold text-base mb-1 text-robux-green">50 000+ в день</h3>
+            <p className="text-xs text-muted-foreground">Зарабатывай до 50 000 Robux каждый день!</p>
           </Card>
-          <Card className="p-4 text-center">
+          <Card className="p-4 text-center bg-gradient-to-br from-robux-gold/20 to-robux-orange/20 border-robux-gold/50">
             <div className="text-3xl mb-2">⚡</div>
-            <h3 className="font-bold text-base mb-1">Мгновенно</h3>
-            <p className="text-xs text-muted-foreground">Robux поступают на ваш аккаунт моментально!</p>
+            <h3 className="font-bold text-base mb-1 text-robux-gold">Мгновенно</h3>
+            <p className="text-xs text-muted-foreground">Robux поступают на аккаунт за секунды!</p>
           </Card>
-          <Card className="p-4 text-center">
+          <Card className="p-4 text-center bg-gradient-to-br from-robux-blue/20 to-accent/20 border-robux-blue/50">
             <div className="text-3xl mb-2">🔒</div>
-            <h3 className="font-bold text-base mb-1">Безопасно</h3>
-            <p className="text-xs text-muted-foreground">100% безопасно для вашего Roblox аккаунта!</p>
+            <h3 className="font-bold text-base mb-1 text-robux-blue">100% БЕЗОПАСНО</h3>
+            <p className="text-xs text-muted-foreground">Никаких банов! Полная анонимность!</p>
           </Card>
-          <Card className="p-4 text-center">
+          <Card className="p-4 text-center bg-gradient-to-br from-robux-red/20 to-robux-orange/20 border-robux-red/50">
             <div className="text-3xl mb-2">🎮</div>
-            <h3 className="font-bold text-base mb-1">Для всех</h3>
-            <p className="text-xs text-muted-foreground">Работает на всех устройствах и браузерах!</p>
+            <h3 className="font-bold text-base mb-1 text-robux-red">142,847 игроков</h3>
+            <p className="text-xs text-muted-foreground">Уже зарабатывают Robux с нами!</p>
+          </Card>
+        </div>
+
+        {/* Extra Motivation Features */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="p-4 text-center bg-gradient-to-br from-purple-900/30 to-pink-900/30 border-purple-500/50">
+            <div className="text-4xl mb-2">🚀</div>
+            <h3 className="font-bold text-lg mb-2 text-purple-400">ЭКСТРА БОНУС!</h3>
+            <p className="text-sm text-purple-200 mb-3">Получи 2500 Robux прямо сейчас!</p>
+            <Button 
+              className="bg-purple-600 hover:bg-purple-700 text-white text-xs"
+              onClick={() => {
+                setTotalRobux(prev => prev + 2500);
+                toast({ title: "ЭКСТРА БОНУС! +2500 Robux! 🚀" });
+              }}
+            >
+              Забрать бонус!
+            </Button>
+          </Card>
+          <Card className="p-4 text-center bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border-yellow-500/50">
+            <div className="text-4xl mb-2">🎁</div>
+            <h3 className="font-bold text-lg mb-2 text-yellow-400">МЕГА ПОДАРОК!</h3>
+            <p className="text-sm text-yellow-200 mb-3">За активность: 5000 Robux!</p>
+            <Button 
+              className="bg-yellow-600 hover:bg-yellow-700 text-white text-xs"
+              onClick={() => {
+                setTotalRobux(prev => prev + 5000);
+                toast({ title: "МЕГА ПОДАРОК! +5000 Robux! 🎁" });
+              }}
+            >
+              Получить подарок!
+            </Button>
+          </Card>
+          <Card className="p-4 text-center bg-gradient-to-br from-red-900/30 to-pink-900/30 border-red-500/50">
+            <div className="text-4xl mb-2">💎</div>
+            <h3 className="font-bold text-lg mb-2 text-red-400">УЛЬТРА ПРИЗ!</h3>
+            <p className="text-sm text-red-200 mb-3">Лимитированный: 10000 Robux!</p>
+            <Button 
+              className="bg-red-600 hover:bg-red-700 text-white text-xs"
+              onClick={() => {
+                setTotalRobux(prev => prev + 10000);
+                toast({ title: "УЛЬТРА ПРИЗ! +10000 Robux! 💎" });
+              }}
+            >
+              Забрать приз!
+            </Button>
           </Card>
         </div>
 
@@ -798,34 +904,107 @@ const Index = () => {
           </div>
         </Card>
 
-        {/* Social Share Section */}
+        {/* Social Share Section - Переработанная */}
         <Card className="p-4">
           <div className="text-center">
-            <h3 className="text-lg font-bold mb-4">📱 Поделиться в соцсетях</h3>
-            <div className="flex flex-wrap justify-center gap-2">
-              <Button size="sm" onClick={() => shareToSocial('vk')} className="bg-blue-600 hover:bg-blue-700 text-white text-xs">
-                🔗 VKontakte
+            <h3 className="text-lg font-bold mb-2 text-robux-gold">📱 Поделиться в соцсетях и получи 100 Робуксов!</h3>
+            <p className="text-xs text-muted-foreground mb-4">Поделись ссылкой с друзьями и моментально получи бонус!</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+              <Button 
+                size="sm" 
+                onClick={() => {
+                  shareToSocial('vk');
+                  setTotalRobux(prev => prev + 100);
+                  toast({ title: "Получено +100 Robux за шаринг! 🎉" });
+                }} 
+                className="bg-[#4680C2] hover:bg-[#4680C2]/80 text-white text-xs flex flex-col items-center p-2 h-auto"
+              >
+                <span className="text-base mb-1">🔗</span>
+                VK
               </Button>
-              <Button size="sm" onClick={() => shareToSocial('telegram')} className="bg-blue-500 hover:bg-blue-600 text-white text-xs">
-                📱 Telegram
+              <Button 
+                size="sm" 
+                onClick={() => {
+                  shareToSocial('telegram');
+                  setTotalRobux(prev => prev + 100);
+                  toast({ title: "Получено +100 Robux за шаринг! 🎉" });
+                }} 
+                className="bg-[#0088cc] hover:bg-[#0088cc]/80 text-white text-xs flex flex-col items-center p-2 h-auto"
+              >
+                <span className="text-base mb-1">📱</span>
+                Telegram
               </Button>
-              <Button size="sm" onClick={() => shareToSocial('whatsapp')} className="bg-green-600 hover:bg-green-700 text-white text-xs">
-                💬 WhatsApp
+              <Button 
+                size="sm" 
+                onClick={() => {
+                  shareToSocial('whatsapp');
+                  setTotalRobux(prev => prev + 100);
+                  toast({ title: "Получено +100 Robux за шаринг! 🎉" });
+                }} 
+                className="bg-[#25D366] hover:bg-[#25D366]/80 text-white text-xs flex flex-col items-center p-2 h-auto"
+              >
+                <span className="text-base mb-1">💬</span>
+                WhatsApp
               </Button>
-              <Button size="sm" onClick={() => shareToSocial('twitter')} className="bg-gray-800 hover:bg-gray-900 text-white text-xs">
-                🐦 Twitter
+              <Button 
+                size="sm" 
+                onClick={() => {
+                  shareToSocial('twitter');
+                  setTotalRobux(prev => prev + 100);
+                  toast({ title: "Получено +100 Robux за шаринг! 🎉" });
+                }} 
+                className="bg-[#1DA1F2] hover:bg-[#1DA1F2]/80 text-white text-xs flex flex-col items-center p-2 h-auto"
+              >
+                <span className="text-base mb-1">🐦</span>
+                Twitter
               </Button>
-              <Button size="sm" onClick={() => window.open('https://www.youtube.com/', '_blank')} className="bg-red-600 hover:bg-red-700 text-white text-xs">
-                📺 YouTube
+              <Button 
+                size="sm" 
+                onClick={() => {
+                  window.open('https://www.youtube.com/', '_blank');
+                  setTotalRobux(prev => prev + 100);
+                  toast({ title: "Получено +100 Robux за шаринг! 🎉" });
+                }} 
+                className="bg-[#FF0000] hover:bg-[#FF0000]/80 text-white text-xs flex flex-col items-center p-2 h-auto"
+              >
+                <span className="text-base mb-1">📺</span>
+                YouTube
               </Button>
-              <Button size="sm" onClick={() => window.open('https://discord.com/', '_blank')} className="bg-purple-600 hover:bg-purple-700 text-white text-xs">
-                🎮 Discord
+              <Button 
+                size="sm" 
+                onClick={() => {
+                  window.open('https://discord.com/', '_blank');
+                  setTotalRobux(prev => prev + 100);
+                  toast({ title: "Получено +100 Robux за шаринг! 🎉" });
+                }} 
+                className="bg-[#7289DA] hover:bg-[#7289DA]/80 text-white text-xs flex flex-col items-center p-2 h-auto"
+              >
+                <span className="text-base mb-1">🎮</span>
+                Discord
               </Button>
-              <Button size="sm" onClick={() => window.open('https://www.tiktok.com/', '_blank')} className="bg-pink-600 hover:bg-pink-700 text-white text-xs">
-                📹 TikTok
+              <Button 
+                size="sm" 
+                onClick={() => {
+                  window.open('https://www.tiktok.com/', '_blank');
+                  setTotalRobux(prev => prev + 100);
+                  toast({ title: "Получено +100 Robux за шаринг! 🎉" });
+                }} 
+                className="bg-[#000000] hover:bg-[#000000]/80 text-white text-xs flex flex-col items-center p-2 h-auto"
+              >
+                <span className="text-base mb-1">📹</span>
+                TikTok
               </Button>
-              <Button size="sm" onClick={() => window.open('https://www.reddit.com/', '_blank')} className="bg-orange-600 hover:bg-orange-700 text-white text-xs">
-                📰 Reddit
+              <Button 
+                size="sm" 
+                onClick={() => {
+                  window.open('https://www.reddit.com/', '_blank');
+                  setTotalRobux(prev => prev + 100);
+                  toast({ title: "Получено +100 Robux за шаринг! 🎉" });
+                }} 
+                className="bg-[#FF4500] hover:bg-[#FF4500]/80 text-white text-xs flex flex-col items-center p-2 h-auto"
+              >
+                <span className="text-base mb-1">📰</span>
+                Reddit
               </Button>
             </div>
           </div>
